@@ -2,6 +2,8 @@ import React from "react"
 import { connect } from "react-redux"
 
 import { fetchUserReceipts } from "../actions/userActions"
+
+import Error from "./Error"
 import TopNav from "./TopNav"
 import SubNav from "./SubNav"
 
@@ -17,29 +19,41 @@ require( "../less/User.less" )
 export default class UserReceipts extends React.Component {
 
 	componentWillMount() {
-		this.props.dispatch( fetchUserReceipts( this.props.match.params.name ) )
+		this.props.dispatch( fetchUserReceipts( this.props.dispatch, this.props.match.params.user ) )
 	}
 
 	render() {
 
-		const { user } = this.props;
+		console.log( "this.props.user >> ", this.props.user )
 
-		const mappedReceipts = user.receipts.map( ( receipt, index ) => (
-			<li className="number receipt single" key={ index }>{ receipt.number }</li>
-		))
+		const { user, error } = this.props;
+
+		let mappedReceipts = []
+		let errorMessages = []
+
+		if ( error ) {
+			errorMessages = error
+		}
+		else {
+			const receipt_keys = Object.keys( user.receipts ).sort( ( a, b ) => { return a - b });
+			receipt_keys.forEach( ( number ) => {
+				let receipt = user.receipts[ number ];
+				mappedReceipts.push( ( <li className="number receipt single" key={ number }>{ number }</li> ) )
+			} )
+		}
 
 		return	(
 			<div>
-				<TopNav title={ user.name } />
+				<TopNav title={ "@" + user.name } />
 				<SubNav url={ this.props.match.url } />
 				<div class="container" id="main_content">
 					<div class="section totals">
 						<div class="item left">
 							<div class="title">
-								left
+								total
 							</div>
 							<div class="number">
-								{ user.totals.receipts.remaining }
+								{ user.totals.receipts.total }
 							</div>
 						</div>
 						<div class="item middle">
@@ -52,10 +66,10 @@ export default class UserReceipts extends React.Component {
 						</div>
 						<div class="item right">
 							<div class="title">
-								total
+								left
 							</div>
 							<div class="number">
-								{ user.totals.receipts.total }
+								{ user.totals.receipts.remaining }
 							</div>
 						</div>
 					</div>

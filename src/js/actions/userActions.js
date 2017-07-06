@@ -32,23 +32,42 @@ function fetchDriveThru( username ) {
 	return drivethru
 }
 
-export function fetchUserReceipts( username ) {
+/*
+{
+	type: "FETCH_USER_RECEIPTS_FULFILLED",
+	payload: {
+		name: String,
+		totals: {
+			receipts: {
+				unique: Number,
+				remaining: Number,
+				total: Number,
+			}
+		},
+		receipts: receipts,
+	}
+}
+*/
+export function fetchUserReceipts( dispatch, name ) {
 
-	const receipts = fetchReceipts( username )
+	const receipts = fetchReceipts( name )
 
-	return {
-		type: "FETCH_USER_RECEIPTS_FULFILLED",
-		payload: {
-			name: "@stuballew",
-			totals: {
-				receipts: {
-					unique: 79,
-					remaining: 20,
-					total: 500,
-				}
-			},
-			receipts: receipts,
-		}
+	dispatch({ type: "FETCH_USER_RECEIPTS_PENDING" })
+	return function ( dispatch ) {
+		axios.post( "http://localhost:3000/api/user/receipts", { name: name } )
+			.then( ( response ) => {
+				dispatch({ type: "FETCH_USER_RECEIPTS_FULFILLED", payload: response.data })
+			})
+			.catch( ( error ) => {
+
+				let message;
+				if ( error.response )
+					message = "["+ error.response.status +"] "+ error.response.data
+				else
+					message = error.message;
+
+				dispatch({ type: "FETCH_USER_RECEIPTS_REJECTED", payload: { error: message } })
+			});
 	}
 }
 

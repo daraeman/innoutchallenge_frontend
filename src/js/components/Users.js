@@ -10,8 +10,6 @@ import TopNav from "./TopNav"
 import UsersNav from "./UsersNav"
 
 require( "../less/Users.less" )
-require( "../less/UsersNav.less" )
-require( "../less/TopNav.less" )
 
 @connect( ( store ) => {
 	return {

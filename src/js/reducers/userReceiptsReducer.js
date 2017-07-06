@@ -9,7 +9,7 @@ export default function reducer(
 					total: null,
 				}
 			},
-			receipts: [],
+			receipts: {},
 		},
 		fetching: false,
 		fetched: false,
@@ -18,7 +18,7 @@ export default function reducer(
 	action
 ) {
 	switch ( action.type ) {
-		case "FETCH_USER_RECEIPTS": {
+		case "FETCH_USER_RECEIPTS_PENDING": {
 			return { ...state, fetching: true }
 		}
 		case "FETCH_USER_RECEIPTS_REJECTED": {

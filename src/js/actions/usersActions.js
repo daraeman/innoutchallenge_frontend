@@ -1,5 +1,18 @@
 import axios from "axios"
 
+/*
+{
+	type: "FETCH_USERS_FULFILLED",
+	payload: [{
+		name: String,
+		totals: {
+			receipts: {
+				unique: Number,
+			}
+		}
+	}]
+}
+*/
 export function fetchUsers( dispatch, search, amount, page ) {
 
 	dispatch({ type: "FETCH_USERS_PENDING" })
@@ -9,40 +22,14 @@ export function fetchUsers( dispatch, search, amount, page ) {
 				dispatch({ type: "FETCH_USERS_FULFILLED", payload: response.data })
 			})
 			.catch( ( error ) => {
+
 				let message;
-				if ( error.response ) {
+				if ( error.response )
 					message = "["+ error.response.status +"] "+ error.response.data
-				} else {
+				else
 					message = error.message;
-				}
+
 				dispatch({ type: "FETCH_USERS_REJECTED", payload: { error: message } })
 			});
 	}
-/*
-	return {
-		type: "FETCH_USERS_FULFILLED",
-		payload: [{
-			name: "@stuballew",
-			totals: {
-				receipts: {
-					unique: 35,
-				}
-			}
-		},{
-			name: "@stuballew2",
-			totals: {
-				receipts: {
-					unique: 35,
-				}
-			}
-		},{
-			name: "@stuballew3",
-			totals: {
-				receipts: {
-					unique: 35,
-				}
-			}
-		}]
-	}
-*/
 }
