@@ -1,0 +1,36 @@
+.challenger {
+	display: inline-block;
+	padding: 40px 34px;
+
+	.number {
+		background: rgb( 72,72,72 );
+		border-radius: 500px;
+		width: 165px;
+		height: 165px;
+		position: relative;
+		color: rgb( 255,255,255 );
+		text-align: center;
+		line-height: 165px;
+		font-size: 65px;
+		font-family: serif;
+
+		&:before {
+			content: "";
+			position: absolute;
+			top: 3px;
+			left: 3px;
+			width: 149px;
+			height: 149px;
+			border: 5px solid rgb( 255,255,255 );
+			border-radius: 500px;
+		}
+	}
+
+	.name {
+		color: rgb( 72,72,72 );
+		font-family: serif;
+		font-size: 30px;
+		font-style: italic;
+		padding: 15px 0px;
+	}
+}

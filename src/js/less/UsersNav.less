@@ -1,0 +1,58 @@
+#challengers_nav {
+	text-align: center;
+	padding-bottom: 6px;
+
+	.previous, .next {
+		width: 41px;
+		height: 44px;
+		border-radius: 25px;
+		background: rgb( 94,94,94 );
+
+		&.disabled {
+			background: rgb( 190,190,190 );
+		}
+
+		&:before {
+			font-family: "FontAwesome";
+			color: rgb( 255,255,255 );
+			font-size: 28px;
+			text-align: center;
+			line-height: 44px;
+		}
+	}
+
+	.previous {
+		float: left;
+		margin-left: 20px;
+		padding-right: 3px;
+
+		&:before {
+			content: "\f0d9"; // fa-caret-left
+		}
+	}
+	.next {
+		float: right;
+		margin-right: 20px;
+		padding-left: 3px;
+
+		&:before {
+			content: "\f0da"; // fa-caret-right
+		}
+	}
+	.pages {
+		text-align: center;
+		display: inline-block;
+
+		.page {
+			font-family: sans-serif;
+			color: rgb( 126,126,126 );
+			font-size: 20px;
+			padding: 10px;
+			line-height: 51px;
+
+			&.active {
+				color: rgb( 0,0,0 );
+			}
+		}
+	}
+}
