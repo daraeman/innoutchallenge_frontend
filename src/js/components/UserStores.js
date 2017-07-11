@@ -2,13 +2,15 @@ import React from "react"
 import { connect } from "react-redux"
 
 import { fetchUserStores } from "../actions/userActions"
+
+import Error from "./Error"
 import TopNav from "./TopNav"
 import SubNav from "./SubNav"
 
 require( "../less/User.less" )
 
 @connect( ( store ) => {
-	console.log( "store >> ", store )
+	console.log( store )
 	return {
 		user: store.userStores.user,
 		user_fetched: store.userStores.fetched,
@@ -18,32 +20,41 @@ require( "../less/User.less" )
 export default class UserStores extends React.Component {
 
 	componentWillMount() {
-		this.props.dispatch( fetchUserStores() )
+		this.props.dispatch( fetchUserStores( this.props.dispatch, this.props.match.params.user ) )
 	}
 
 	render() {
 
-		const { user } = this.props;
+		console.log( "this.props.user >> ", this.props.user )
 
-		const mappedStores = user.stores.map( ( store, index ) => (
-			<li className="number store" key={ index }>{ store.number }</li>
-		))
+		const { user, error } = this.props;
+
+		let mappedStores = []
+		let errorMessages = []
+
+		if ( error ) {
+			errorMessages = error
+		}
+		else {
+			const store_keys = Object.keys( user.stores ).sort( ( a, b ) => { return a - b });
+			store_keys.forEach( ( number ) => {
+				let store = user.stores[ number ];
+				let classes = [ "number", "store" ];
+				if ( store.amount > 0 )
+					classes.push( "has" );
+				if ( store.amount > 1 )
+					classes.push( "multiple" );
+				mappedStores.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
+			} )
+		}
 
 		return	(
 			<div>
-				<TopNav title={ user.name } />
+				<TopNav title={ "@" + user.name } />
 				<SubNav url={ this.props.match.url } />
 				<div class="container" id="main_content">
 					<div class="section totals">
 						<div class="item left">
-							<div class="title">
-								unique
-							</div>
-							<div class="number">
-								{ user.totals.stores.unique }
-							</div>
-						</div>
-						<div class="item middle">
 							<div class="title">
 								total
 							</div>
@@ -51,9 +62,17 @@ export default class UserStores extends React.Component {
 								{ user.totals.stores.total }
 							</div>
 						</div>
+						<div class="item middle">
+							<div class="title">
+								unique
+							</div>
+							<div class="number">
+								{ user.totals.stores.unique }
+							</div>
+						</div>
 						<div class="item right">
 							<div class="title">
-								remaining
+								left
 							</div>
 							<div class="number">
 								{ user.totals.stores.remaining }

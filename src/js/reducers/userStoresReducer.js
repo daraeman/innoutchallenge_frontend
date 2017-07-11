@@ -4,7 +4,7 @@ export default function reducer(
 			name: null,
 			totals: {
 				stores: {
-					niqe: null,
+					unique: null,
 					total: null,
 					remaining: null,
 				}

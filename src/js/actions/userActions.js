@@ -50,8 +50,6 @@ function fetchDriveThru( username ) {
 */
 export function fetchUserReceipts( dispatch, name ) {
 
-	const receipts = fetchReceipts( name )
-
 	dispatch({ type: "FETCH_USER_RECEIPTS_PENDING" })
 	return function ( dispatch ) {
 		axios.post( "http://localhost:3000/api/user/receipts", { name: name } )
@@ -71,42 +69,44 @@ export function fetchUserReceipts( dispatch, name ) {
 	}
 }
 
-export function fetchUserStores( username ) {
+export function fetchUserStores( dispatch, name ) {
 
-	const stores = fetchStores( username )
+	dispatch({ type: "FETCH_USER_STORES_PENDING" })
+	return function ( dispatch ) {
+		axios.post( "http://localhost:3000/api/user/stores", { name: name } )
+			.then( ( response ) => {
+				dispatch({ type: "FETCH_USER_STORES_FULFILLED", payload: response.data })
+			})
+			.catch( ( error ) => {
 
-	return {
-		type: "FETCH_USER_STORES_FULFILLED",
-		payload: {
-			name: "@stuballew",
-			totals: {
-				stores: {
-					unique: 34,
-					total: 500,
-					remaining: 20,
-				}
-			},
-			stores: stores,
-		}
+				let message;
+				if ( error.response )
+					message = "["+ error.response.status +"] "+ error.response.data
+				else
+					message = error.message;
+
+				dispatch({ type: "FETCH_USER_STORES_REJECTED", payload: { error: message } })
+			});
 	}
 }
 
-export function fetchUserDriveThru( username ) {
+export function fetchUserDriveThru( dispatch, name ) {
 
-	const drivethru = fetchDriveThru( username )
+	dispatch({ type: "FETCH_USER_DRIVETHRU_PENDING" })
+	return function ( dispatch ) {
+		axios.post( "http://localhost:3000/api/user/drivethru", { name: name } )
+			.then( ( response ) => {
+				dispatch({ type: "FETCH_USER_DRIVETHRU_FULFILLED", payload: response.data })
+			})
+			.catch( ( error ) => {
 
-	return {
-		type: "FETCH_USER_DRIVETHRU_FULFILLED",
-		payload: {
-			name: "@stuballew",
-			totals: {
-				drivethru: {
-					unique: 13,
-					total: 25,
-					remaining: 100,
-				}
-			},
-			drivethru: drivethru,
-		}
+				let message;
+				if ( error.response )
+					message = "["+ error.response.status +"] "+ error.response.data
+				else
+					message = error.message;
+
+				dispatch({ type: "FETCH_USER_DRIVETHRU_REJECTED", payload: { error: message } })
+			});
 	}
 }

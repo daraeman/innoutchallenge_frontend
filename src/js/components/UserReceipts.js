@@ -38,7 +38,12 @@ export default class UserReceipts extends React.Component {
 			const receipt_keys = Object.keys( user.receipts ).sort( ( a, b ) => { return a - b });
 			receipt_keys.forEach( ( number ) => {
 				let receipt = user.receipts[ number ];
-				mappedReceipts.push( ( <li className="number receipt single" key={ number }>{ number }</li> ) )
+				let classes = [ "number", "receipt", "single" ];
+				if ( receipt.amount > 0 )
+					classes.push( "has" );
+				if ( receipt.amount > 1 )
+					classes.push( "multiple" );
+				mappedReceipts.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
 			} )
 		}
 

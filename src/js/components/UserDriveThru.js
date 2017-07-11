@@ -2,48 +2,59 @@ import React from "react"
 import { connect } from "react-redux"
 
 import { fetchUserDriveThru } from "../actions/userActions"
+
+import Error from "./Error"
 import TopNav from "./TopNav"
 import SubNav from "./SubNav"
 
 require( "../less/User.less" )
 
 @connect( ( store ) => {
-	console.log( "store >>", store )
+	console.log( store )
 	return {
 		user: store.userDriveThru.user,
 		user_fetched: store.userDriveThru.fetched,
 	}
 })
 
-export default class UserDriveThru extends React.Component {
+export default class UserReceipts extends React.Component {
 
 	componentWillMount() {
-		this.props.dispatch( fetchUserDriveThru() )
+		this.props.dispatch( fetchUserDriveThru( this.props.dispatch, this.props.match.params.user ) )
 	}
 
 	render() {
 
-		const { user } = this.props;
+		console.log( "this.props.user >> ", this.props.user )
 
-		const mappedDriveThru = user.drivethru.map( ( drivethru, index ) => (
-			<li className="number receipt" key={ index }>{ drivethru.number }</li>
-		))
+		const { user, error } = this.props;
+
+		let mappedDriveThru = []
+		let errorMessages = []
+
+		if ( error ) {
+			errorMessages = error
+		}
+		else {
+			const receipt_keys = Object.keys( user.drivethru ).sort( ( a, b ) => { return a - b });
+			receipt_keys.forEach( ( number ) => {
+				let receipt = user.drivethru[ number ];
+				let classes = [ "number", "receipt" ];
+				if ( receipt.amount > 0 )
+					classes.push( "has" );
+				if ( receipt.amount > 1 )
+					classes.push( "multiple" );
+				mappedDriveThru.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
+			} )
+		}
 
 		return	(
 			<div>
-				<TopNav title={ user.name } />
+				<TopNav title={ "@" + user.name } />
 				<SubNav url={ this.props.match.url } />
 				<div class="container" id="main_content">
 					<div class="section totals">
 						<div class="item left">
-							<div class="title">
-								Unique
-							</div>
-							<div class="number">
-								{ user.totals.drivethru.total }
-							</div>
-						</div>
-						<div class="item middle">
 							<div class="title">
 								total
 							</div>
@@ -51,9 +62,17 @@ export default class UserDriveThru extends React.Component {
 								{ user.totals.drivethru.total }
 							</div>
 						</div>
+						<div class="item middle">
+							<div class="title">
+								unique
+							</div>
+							<div class="number">
+								{ user.totals.drivethru.unique }
+							</div>
+						</div>
 						<div class="item right">
 							<div class="title">
-								remaining
+								left
 							</div>
 							<div class="number">
 								{ user.totals.drivethru.remaining }
