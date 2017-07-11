@@ -40,8 +40,10 @@ export default class UserStores extends React.Component {
 			store_keys.forEach( ( number ) => {
 				let store = user.stores[ number ];
 				let classes = [ "number", "store" ];
-				if ( store.amount > 0 )
+				if ( store.amount > 0 ) {
+					console.log( "amount: ", store.amount )
 					classes.push( "has" );
+				}
 				if ( store.amount > 1 )
 					classes.push( "multiple" );
 				mappedStores.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
@@ -54,15 +56,7 @@ export default class UserStores extends React.Component {
 				<SubNav url={ this.props.match.url } />
 				<div class="container" id="main_content">
 					<div class="section totals">
-						<div class="item left">
-							<div class="title">
-								total
-							</div>
-							<div class="number">
-								{ user.totals.stores.total }
-							</div>
-						</div>
-						<div class="item middle">
+						<div class="item circle middle">
 							<div class="title">
 								unique
 							</div>
@@ -70,7 +64,7 @@ export default class UserStores extends React.Component {
 								{ user.totals.stores.unique }
 							</div>
 						</div>
-						<div class="item right">
+						<div class="item circle right">
 							<div class="title">
 								left
 							</div>

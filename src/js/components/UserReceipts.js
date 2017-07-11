@@ -53,7 +53,7 @@ export default class UserReceipts extends React.Component {
 				<SubNav url={ this.props.match.url } />
 				<div class="container" id="main_content">
 					<div class="section totals">
-						<div class="item left">
+						<div class="item circle left small">
 							<div class="title">
 								total
 							</div>
@@ -61,7 +61,7 @@ export default class UserReceipts extends React.Component {
 								{ user.totals.receipts.total }
 							</div>
 						</div>
-						<div class="item middle">
+						<div class="item circle middle">
 							<div class="title">
 								unique
 							</div>
@@ -69,7 +69,7 @@ export default class UserReceipts extends React.Component {
 								{ user.totals.receipts.unique }
 							</div>
 						</div>
-						<div class="item right">
+						<div class="item circle right small">
 							<div class="title">
 								left
 							</div>
