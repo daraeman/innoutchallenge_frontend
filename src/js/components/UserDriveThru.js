@@ -6,6 +6,7 @@ import { fetchUserDriveThru } from "../actions/userActions"
 import Error from "./Error"
 import TopNav from "./TopNav"
 import SubNav from "./SubNav"
+import PageNotFound from "./PageNotFound"
 
 require( "../less/User.less" )
 
@@ -13,7 +14,8 @@ require( "../less/User.less" )
 	console.log( store )
 	return {
 		user: store.userDriveThru.user,
-		user_fetched: store.userDriveThru.fetched,
+		error: store.userDriveThru.error,
+		statusCode: store.userDriveThru.statusCode,
 	}
 })
 
@@ -27,12 +29,20 @@ export default class UserReceipts extends React.Component {
 
 		console.log( "this.props.user >> ", this.props.user )
 
-		const { user, error } = this.props;
+		const { user, error, statusCode } = this.props;
 
 		let mappedDriveThru = []
 		let errorMessages = []
 
+		console.log( "statusCode >> ", statusCode )
+		console.log( "error >> ", error )
+
 		if ( error ) {
+			if ( statusCode === 404 ) {
+				return (
+					<PageNotFound error="Page was not found yo!" />
+				)
+			}
 			errorMessages = error
 		}
 		else {
@@ -54,7 +64,7 @@ export default class UserReceipts extends React.Component {
 				<SubNav url={ this.props.match.url } />
 				<div class="container" id="main_content">
 					<div class="section totals">
-						<div class="item circle left small">
+						<div class="item circle left">
 							<div class="title">
 								total
 							</div>
@@ -68,14 +78,6 @@ export default class UserReceipts extends React.Component {
 							</div>
 							<div class="number">
 								{ user.totals.drivethru.unique }
-							</div>
-						</div>
-						<div class="item circle right small">
-							<div class="title">
-								left
-							</div>
-							<div class="number">
-								{ user.totals.drivethru.remaining }
 							</div>
 						</div>
 					</div>

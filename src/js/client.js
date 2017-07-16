@@ -2,12 +2,13 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
 
-import { BrowserRouter as Router, Route, browserHistory, Switch } from "react-router-dom"
+import { BrowserRouter as Router, Route, browserHistory, Switch, Redirect } from "react-router-dom"
 
 import Users from "./components/Users"
 import UserReceipts from "./components/UserReceipts"
 import UserStores from "./components/UserStores"
 import UserDriveThru from "./components/UserDriveThru"
+import PageNotFound from "./components/PageNotFound"
 import store from "./store"
 
 require( "./less/main.less" )
@@ -19,12 +20,16 @@ ReactDOM.render(
 		<Router history={ browserHistory }>
 			<div>
 				<Switch>
-					<Route path="/@:user(\w+)/stores" component={ UserStores } />
-					<Route path="/@:user(\w+)/receipts" component={ UserReceipts } />
-					<Route path="/@:user(\w+)/drivethru" component={ UserDriveThru } />
-					<Route path="/" exact component={ Users } />
-					<Route path="/challengers" component={ Users } />
-					<Route path="/@:user(\w+)" component={ UserReceipts } />
+					<Route path="/@:user(\w+)/stores" exact component={ UserStores } />
+					<Route path="/@:user(\w+)/receipts" exact component={ UserReceipts } />
+					<Route path="/@:user(\w+)/drivethru" exact component={ UserDriveThru } />
+					<Redirect from="/challengers/0" to="/challengers/1" exact />
+					<Route path="/challengers/:page(\d+)" exact component={ Users } />
+					<Redirect from="/challengers" to="/challengers/1" exact />
+					<Redirect from="/" to="/challengers/1" exact />
+					<Route path="/404" exact component={ PageNotFound } />
+					<Route path="/@:user(\w+)" exact component={ UserReceipts } />
+					<Route path="*" component={ PageNotFound } />
 				</Switch>
 			</div>
 		</Router>

@@ -64,7 +64,7 @@ export function fetchUserReceipts( dispatch, name ) {
 				else
 					message = error.message;
 
-				dispatch({ type: "FETCH_USER_RECEIPTS_REJECTED", payload: { error: message } })
+				dispatch({ type: "FETCH_USER_RECEIPTS_REJECTED", payload: { error: message, statusCode: error.response.status } })
 			});
 	}
 }
@@ -85,7 +85,7 @@ export function fetchUserStores( dispatch, name ) {
 				else
 					message = error.message;
 
-				dispatch({ type: "FETCH_USER_STORES_REJECTED", payload: { error: message } })
+				dispatch({ type: "FETCH_USER_STORES_REJECTED", payload: { error: message, statusCode: error.response.status } })
 			});
 	}
 }
@@ -100,13 +100,15 @@ export function fetchUserDriveThru( dispatch, name ) {
 			})
 			.catch( ( error ) => {
 
+				console.log( "error >> ", error )
+
 				let message;
 				if ( error.response )
 					message = "["+ error.response.status +"] "+ error.response.data
 				else
 					message = error.message;
 
-				dispatch({ type: "FETCH_USER_DRIVETHRU_REJECTED", payload: { error: message } })
+				dispatch({ type: "FETCH_USER_DRIVETHRU_REJECTED", payload: { error: message, statusCode: error.response.status } })
 			});
 	}
 }

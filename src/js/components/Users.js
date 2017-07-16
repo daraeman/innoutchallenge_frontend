@@ -15,7 +15,9 @@ require( "../less/Users.less" )
 	return {
 		users: store.users.users,
 		error: store.users.error,
-		user_fetched: store.users.fetched,
+		hasPreviousPage: store.users.hasPreviousPage,
+		hasNextPage: store.users.hasNextPage,
+		currentPage: store.users.currentPage,
 	}
 })
 
@@ -23,15 +25,29 @@ export default class Users extends React.Component {
 
 	componentWillMount() {
 		this.setState({
-			users_per_page: 9
+			users_per_page: 9,
+			current_page: parseInt( this.props.match.params.page ) || 1,
 		}, () => {
-			this.props.dispatch( fetchUsers( this.props.dispatch, null, this.state.users_per_page, 0 ) )
+			this.props.dispatch( fetchUsers( this.props.dispatch, null, this.state.users_per_page, this.state.current_page ) )
 		})
+	}
+
+	componentWillReceiveProps( props ) {
+
+		if ( this.state.current_page === parseInt( this.props.match.params.page ) )
+			return;
+
+		this.setState({
+			current_page: parseInt( this.props.match.params.page ) || 1,
+		}, () => {
+			this.props.dispatch( fetchUsers( this.props.dispatch, null, this.state.users_per_page, this.state.current_page ) )
+		})
+
 	}
 
 	render() {
 
-		const { users, error } = this.props;
+		const { users, error, hasPreviousPage, hasNextPage } = this.props;
 
 		let content
 		let errorMessages = []
@@ -42,7 +58,7 @@ export default class Users extends React.Component {
 		else {
 			content = users.map( ( user ) => {
 				return (
-					<Link className="item challenger" key={ user.name } to={ "@" + user.name }>
+					<Link className="item challenger" key={ user.name } to={ "/@" + user.name }>
 						<div className="number">{ user.totals.receipts.unique }</div>
 						<div className="name">{ user.name }</div>
 					</Link>
@@ -50,7 +66,7 @@ export default class Users extends React.Component {
 			})
 		}
 
-		return	(
+		return (
 			<div>
 				<Error messages={ errorMessages } />
 				<TopNav title="Challengers" />
@@ -58,7 +74,7 @@ export default class Users extends React.Component {
 					<div className="challengers">
 						{ content }
 					</div>
-					<UsersNav />
+					<UsersNav hasPreviousPage={ hasPreviousPage } hasNextPage={ hasNextPage } currentPage={ this.state.current_page } />
 				</div>
 			</div>
 		)

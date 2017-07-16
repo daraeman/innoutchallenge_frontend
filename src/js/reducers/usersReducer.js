@@ -11,6 +11,9 @@ export default function reducer(
 		fetching: false,
 		fetched: false,
 		error: null,
+		hasPreviousPage: false,
+		hasNextPage: false,
+		currentPage: 1,
 	},
 	action
 ) {
@@ -23,13 +26,15 @@ export default function reducer(
 			return { ...state, fetching: false, error: action.payload }
 		}
 		case "FETCH_USERS_FULFILLED": {
-			return { ...state, fetching: false, fetched: true, users: action.payload }
-		}
-		case "SET_USERS_NAME": {
-			return { ...state, user: { ...state.user, name: action.payload } }
-		}
-		case "SET_USERS_AGE": {
-			return { ...state, user: { ...state.user, name: action.payload } }
+			return {
+				...state,
+				fetching: false,
+				fetched: true,
+				users: action.payload.users,
+				hasPreviousPage: action.payload.hasPreviousPage,
+				hasNextPage: action.payload.hasNextPage,
+				currentPage: action.payload.currentPage,
+			}
 		}
 	}
 

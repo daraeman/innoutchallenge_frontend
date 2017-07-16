@@ -6,6 +6,7 @@ import { fetchUserStores } from "../actions/userActions"
 import Error from "./Error"
 import TopNav from "./TopNav"
 import SubNav from "./SubNav"
+import PageNotFound from "./PageNotFound"
 
 require( "../less/User.less" )
 
@@ -13,7 +14,8 @@ require( "../less/User.less" )
 	console.log( store )
 	return {
 		user: store.userStores.user,
-		user_fetched: store.userStores.fetched,
+		error: store.userDriveThru.error,
+		statusCode: store.userDriveThru.statusCode,
 	}
 })
 
@@ -27,12 +29,20 @@ export default class UserStores extends React.Component {
 
 		console.log( "this.props.user >> ", this.props.user )
 
-		const { user, error } = this.props;
+		const { user, error, statusCode } = this.props;
 
 		let mappedStores = []
 		let errorMessages = []
 
+		console.log( "statusCode >> ", statusCode )
+		console.log( "error >> ", error )
+
 		if ( error ) {
+			if ( statusCode === 404 ) {
+				return (
+					<PageNotFound error="Page was not found yo!" />
+				)
+			}
 			errorMessages = error
 		}
 		else {
