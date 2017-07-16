@@ -15,8 +15,17 @@
 	.logo {
 		width: @top_nav_height;
 		height: @top_nav_height;
-		outline: 1px solid red;
 		float: left;
+		color: rgb( 209,55,55 );
+		font-size: 28px;
+		line-height: @top_nav_height;
+
+		.show {
+			visibility: visible;
+		}
+		.hide {
+			visibility: hidden;
+		}
 	}
 
 	.text {
@@ -103,6 +112,74 @@
 			font-size: 28px;
 			line-height: @top_nav_height;
 			width: @top_nav_height;
+		}
+	}
+}
+
+#side_nav_clickfield {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background: rgba( 0,0,0, 0 );
+	z-index: 9;
+	transition: 0.5s;
+
+	&.closed {
+		pointer-events: none;
+	}
+
+	&.open {
+		background: rgba( 0,0,0, 0.2 );
+	}
+}
+
+#side_nav {
+	.top_nav_font;
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	right: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	padding-top: 40px;
+	transition: 0.5s;
+
+	&.open {
+		width: 200px;
+	}
+
+	li {
+
+		a {
+			padding: 8px 8px 8px 32px;
+			text-decoration: none;
+			font-size: 20px;
+			color: #818181;
+			display: block;
+			transition: 0.3s;
+			cursor: pointer;
+
+			&:hover {
+				color: #f1f1f1;
+			}
+		}
+	}
+}
+
+@media screen and ( max-height: 450px ) {
+
+	#side_nav {
+		padding-top: 15px;
+		
+		li {
+			a {
+				font-size: 18px;
+				padding-left: 26px;
+			}
 		}
 	}
 }

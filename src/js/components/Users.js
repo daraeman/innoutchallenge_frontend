@@ -48,6 +48,7 @@ export default class Users extends React.Component {
 	render() {
 
 		const { users, error, hasPreviousPage, hasNextPage } = this.props;
+		console.log( "this.state.current_page [%s]", this.state.current_page )
 
 		let content
 		let errorMessages = []
@@ -69,7 +70,7 @@ export default class Users extends React.Component {
 		return (
 			<div>
 				<Error messages={ errorMessages } />
-				<TopNav title="Challengers" />
+				<TopNav title="Challengers" showBackButton={ false } />
 				<div className="container" id="main_content">
 					<div className="challengers">
 						{ content }

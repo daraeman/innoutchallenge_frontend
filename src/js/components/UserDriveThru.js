@@ -27,15 +27,10 @@ export default class UserReceipts extends React.Component {
 
 	render() {
 
-		console.log( "this.props.user >> ", this.props.user )
-
 		const { user, error, statusCode } = this.props;
 
 		let mappedDriveThru = []
 		let errorMessages = []
-
-		console.log( "statusCode >> ", statusCode )
-		console.log( "error >> ", error )
 
 		if ( error ) {
 			if ( statusCode === 404 ) {
@@ -60,7 +55,7 @@ export default class UserReceipts extends React.Component {
 
 		return	(
 			<div>
-				<TopNav title={ "@" + user.name } />
+				<TopNav title={ "@" + user.name } showBackButton={ true } />
 				<SubNav url={ this.props.match.url } />
 				<div class="container" id="main_content">
 					<div class="section totals">

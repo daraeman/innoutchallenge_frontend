@@ -5,29 +5,49 @@ require( "../less/TopNav.less" )
 
 export default class TopNav extends React.Component {
 
+	constructor( props ) {
+		super( props );
+		this.state = {
+			sidebarClass: "closed",
+			backButtonClass: ( this.props.showBackButton ) ? "show" : "hide",
+		};
+
+		this.sidebarToggle = this.sidebarToggle.bind( this );
+	}
+
+	sidebarToggle() {
+		let className = ( this.state.sidebarClass === "open" ) ? "closed" : "open";
+		this.setState({
+			sidebarClass: className
+		});
+	}
+
 	render() {
 
 		const title = this.props.title
 
-		return	(
+		return (
 			<div class="top">
 				<nav id="top_nav">
-					<div class="logo"></div>
+					<div class="logo">
+						<NavLink to="/" class={ this.state.backButtonClass }><i class="fa fa-close" aria-hidden="true"></i></NavLink>
+					</div>
 					<ul class="dropdown">
-						<li>
+						<li onClick={ this.sidebarToggle }>
 							<i class="fa fa-bars icon" aria-hidden="true"></i>
-							<ul class="dropdown_target">
-								<li><NavLink to="/challengers" activeClassName="active">Challengers</NavLink></li>
-								<li><NavLink to="/map" activeClassName="active">Map</NavLink></li>
-								<li><NavLink to="/about" activeClassName="active">About</NavLink></li>
-								<li><NavLink to="/account" activeClassName="active">Account</NavLink></li>
-							</ul>
 						</li>
 					</ul>
 					<div class="text">
 						{ title }
 					</div>
 				</nav>
+				<div id="side_nav_clickfield" class={ this.state.sidebarClass } onClick={ this.sidebarToggle }></div>
+				<ul id="side_nav" class={ this.state.sidebarClass }>
+					<li><NavLink to="/challengers" activeClassName="active">Challengers</NavLink></li>
+					<li><NavLink to="/map" activeClassName="active">Map</NavLink></li>
+					<li><NavLink to="/about" activeClassName="active">About</NavLink></li>
+					<li><NavLink to="/account" activeClassName="active">Account</NavLink></li>
+				</ul>
 			</div>
 		)
 	}

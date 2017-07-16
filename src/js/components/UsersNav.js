@@ -9,6 +9,9 @@ export default class UsersNav extends React.Component {
 
 		const { hasPreviousPage, hasNextPage } = this.props
 		const currentPage = parseInt( this.props.currentPage )
+
+		console.log( "currentPage [%s]", currentPage )
+/*
 		const max_pages_shown = 4
 		const min_page = 1
 		
@@ -22,15 +25,19 @@ export default class UsersNav extends React.Component {
 				<NavLink to={ "/challengers/" + page } class="page" activeClassName="active" key={ page }>{ page }</NavLink>
 			))
 		}
-
+*/
 		let previousLink = ( hasPreviousPage ) ? <NavLink to={  "/challengers/" + ( currentPage - 1 ) } class="previous"></NavLink> : <NavLink to="/" class="previous disabled"></NavLink>
 		let nextLink = ( hasNextPage ) ? <NavLink to={  "/challengers/" + ( currentPage + 1 ) } class="next"></NavLink> : <NavLink to="/" class="next disabled"></NavLink>
 
-		return (
-			<nav id="challengers_nav" class="footer">
+		/*
 				<div class="pages">
 					{ pages }
 				</div>
+		*/
+
+		return (
+			<nav id="challengers_nav" class="footer">
+				
 				{ previousLink }
 				{ nextLink }
 			</nav>
