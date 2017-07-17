@@ -7,10 +7,8 @@ import { fetchUsers } from "../actions/usersActions"
 
 import Error from "./Error"
 import TopNav from "./TopNav"
-import UsersNav from "./UsersNav"
 
 require( "../less/Users.less" )
-require( "../less/UsersNav.less" )
 
 @connect( ( store ) => {
 	return {
@@ -25,7 +23,6 @@ require( "../less/UsersNav.less" )
 export default class Users extends React.Component {
 
 	componentWillMount() {
-		console.log( "componentWillMount" )
 		this.setState({
 			users_per_page: 6,
 			current_page: parseInt( this.props.match.params.page ) || 1,
@@ -35,10 +32,9 @@ export default class Users extends React.Component {
 	}
 
 	changePage( number ) {
-		console.log( "changePage [%s]", number )
 
-		if ( this.state.current_page === number )
-			return;
+		if ( this.state.current_page == number )
+			return
 
 		this.setState({
 			current_page: number || 1,
@@ -60,6 +56,11 @@ export default class Users extends React.Component {
 		let content
 		let errorMessages = []
 
+		if ( ! users || ! users[0].name ) {
+			this.changePage( 1 )
+			if ( this.props.location.pathname != "/challengers/1" )
+				this.props.history.push( "/challengers/1" )
+		}
 		if ( error ) {
 			errorMessages = error
 		}
