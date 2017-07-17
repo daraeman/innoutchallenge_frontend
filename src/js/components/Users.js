@@ -58,8 +58,8 @@ export default class Users extends React.Component {
 
 		if ( ! users || ! users[0].name ) {
 			this.changePage( 1 )
-			if ( this.props.location.pathname != "/challengers/1" )
-				this.props.history.push( "/challengers/1" )
+			if ( this.props.location.pathname != "/challengers" )
+				this.props.history.push( "/challengers" )
 		}
 		if ( error ) {
 			errorMessages = error

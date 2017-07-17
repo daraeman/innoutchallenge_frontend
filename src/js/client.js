@@ -23,10 +23,10 @@ ReactDOM.render(
 					<Route path="/@:user(\w+)/stores" exact component={ UserStores } />
 					<Route path="/@:user(\w+)/receipts" exact component={ UserReceipts } />
 					<Route path="/@:user(\w+)/drivethru" exact component={ UserDriveThru } />
-					<Redirect from="/challengers/0" to="/challengers/1" exact />
+					<Route path="/challengers" component={ Users }  exact />
+					<Redirect from="/challengers/0" to="/challengers" exact />
+					<Redirect from="/challengers/1" to="/challengers" exact />
 					<Route path="/challengers/:page(\d+)" exact component={ Users } />
-					<Redirect from="/challengers" to="/challengers/1" exact />
-					<Redirect from="/" to="/challengers/1" exact />
 					<Route path="/404" exact component={ PageNotFound } />
 					<Route path="/@:user(\w+)" exact component={ UserReceipts } />
 					<Route path="*" component={ PageNotFound } />
