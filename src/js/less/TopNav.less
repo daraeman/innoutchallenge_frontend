@@ -1,0 +1,185 @@
+@top_nav_height: 60px;
+.top_nav_font {
+	font-family: Georgia, serif;
+	font-style: italic;
+}
+
+#top_nav {
+	height: @top_nav_height;
+	text-align: center;
+
+	> * {
+		display: inline-block;
+	}
+
+	.logo {
+		width: @top_nav_height;
+		height: @top_nav_height;
+		float: left;
+		color: rgb( 209,55,55 );
+		font-size: 28px;
+		line-height: @top_nav_height;
+
+		.show {
+			visibility: visible;
+		}
+		.hide {
+			visibility: hidden;
+		}
+	}
+
+	.text {
+		font-size: 27px;
+		line-height: @top_nav_height;
+		.top_nav_font;
+		color: rgb( 71,71,71 );
+
+		.not_editing {
+
+		}
+		.is_editing {
+			display: none;
+			line-height: 45px;
+			padding: 0px 11px 0px 10px;
+		}
+
+		&.editing {
+
+			.not_editing {
+				display: none;
+			}
+			.is_editing {
+				display: inline-block;
+			}
+		}
+	}
+
+	.dropdown {
+		margin: 0px;
+		padding: 0px;
+		float: right;
+
+		> li {
+			width: 100%;
+			text-align: center;
+			display: inline-block;
+		}
+
+		li {
+			display: block;
+			float: left;
+			cursor: pointer;
+
+			ul {
+				display: none;
+				transition: 0.1s 1s;
+				padding: 0px;
+				position: absolute;
+				width: 100%;
+				z-index: 20;
+				top: @top_nav_height;
+				left: 0px;
+				box-shadow: 0 10px 10px -4px rgba( 0,0,0, 0.2 );
+
+				li {
+					float: none;
+					background-color: rgb( 244,244,244 );
+					border-top: 1px solid rgb( 186,186,186 );
+					color: rgb( 96,96,96 );
+					.top_nav_font;
+					font-size: 22px;
+					padding: 9px 5px;
+
+					&:last-child {
+						border-bottom: 1px solid rgb( 186,186,186 );
+					}
+				}
+			}
+
+			&:hover {
+				transition-delay: 0s;
+
+				ul {
+					display: block;
+				}
+			}
+		}
+
+		.icon {
+			display: inline-block;
+			float: right;
+			color: rgb( 209,55,55 );
+			font-size: 28px;
+			line-height: @top_nav_height;
+			width: @top_nav_height;
+		}
+	}
+}
+
+#side_nav_clickfield {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background: rgba( 0,0,0, 0 );
+	z-index: 9;
+	transition: 0.5s;
+
+	&.closed {
+		pointer-events: none;
+	}
+
+	&.open {
+		background: rgba( 0,0,0, 0.2 );
+	}
+}
+
+#side_nav {
+	.top_nav_font;
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	right: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	padding-top: 40px;
+	transition: 0.5s;
+
+	&.open {
+		width: 200px;
+	}
+
+	li {
+
+		a {
+			padding: 8px 8px 8px 32px;
+			text-decoration: none;
+			font-size: 20px;
+			color: #818181;
+			display: block;
+			transition: 0.3s;
+			cursor: pointer;
+
+			&:hover {
+				color: #f1f1f1;
+			}
+		}
+	}
+}
+
+@media screen and ( max-height: 450px ) {
+
+	#side_nav {
+		padding-top: 15px;
+		
+		li {
+			a {
+				font-size: 18px;
+				padding-left: 26px;
+			}
+		}
+	}
+}
