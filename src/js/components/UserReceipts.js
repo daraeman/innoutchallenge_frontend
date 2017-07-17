@@ -24,6 +24,12 @@ export default class UserReceipts extends React.Component {
 		this.props.dispatch( fetchUserReceipts( this.props.dispatch, this.props.match.params.user ) )
 	}
 
+	formatNumber( number ) {
+		if ( number == 69 )
+			return "68½";
+		return number;
+	}
+
 	render() {
 
 		const { user, error, statusCode } = this.props;
@@ -63,7 +69,7 @@ export default class UserReceipts extends React.Component {
 								total
 							</div>
 							<div class="number">
-								{ user.totals.receipts.total }
+								{ this.formatNumber( user.totals.receipts.total ) }
 							</div>
 						</div>
 						<div class="item circle middle">
@@ -71,7 +77,7 @@ export default class UserReceipts extends React.Component {
 								unique
 							</div>
 							<div class="number">
-								{ user.totals.receipts.unique }
+								{ this.formatNumber( user.totals.receipts.unique ) }
 							</div>
 						</div>
 						<div class="item circle right small">
@@ -79,7 +85,7 @@ export default class UserReceipts extends React.Component {
 								left
 							</div>
 							<div class="number">
-								{ user.totals.receipts.remaining }
+								{ this.formatNumber( user.totals.receipts.remaining ) }
 							</div>
 						</div>
 					</div>

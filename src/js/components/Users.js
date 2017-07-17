@@ -45,6 +45,12 @@ export default class Users extends React.Component {
 
 	}
 
+	formatNumber( number ) {
+		if ( number == 69 )
+			return "68½";
+		return number;
+	}
+
 	render() {
 
 		const { users, error, hasPreviousPage, hasNextPage } = this.props;
@@ -60,7 +66,7 @@ export default class Users extends React.Component {
 			content = users.map( ( user ) => {
 				return (
 					<Link className="item challenger" key={ user.name } to={ "/@" + user.name }>
-						<div className="number">{ user.totals.receipts.unique }</div>
+						<div className="number">{ this.formatNumber( user.totals.receipts.unique ) }</div>
 						<div className="name">{ user.name }</div>
 					</Link>
 				)
