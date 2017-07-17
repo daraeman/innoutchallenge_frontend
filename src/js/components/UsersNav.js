@@ -10,7 +10,7 @@ export default class UsersNav extends React.Component {
 		const { hasPreviousPage, hasNextPage } = this.props
 		const currentPage = parseInt( this.props.currentPage )
 
-		console.log( "currentPage [%s]", currentPage )
+		console.log( "UsersNav currentPage [%s]", currentPage )
 /*
 		const max_pages_shown = 4
 		const min_page = 1

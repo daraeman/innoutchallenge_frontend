@@ -10,6 +10,7 @@ import TopNav from "./TopNav"
 import UsersNav from "./UsersNav"
 
 require( "../less/Users.less" )
+require( "../less/UsersNav.less" )
 
 @connect( ( store ) => {
 	return {
@@ -24,16 +25,20 @@ require( "../less/Users.less" )
 export default class Users extends React.Component {
 
 	componentWillMount() {
+		console.log( "componentWillMount" )
 		this.setState({
-			users_per_page: 9,
+			users_per_page: 6,
 			current_page: parseInt( this.props.match.params.page ) || 1,
 		}, () => {
 			this.props.dispatch( fetchUsers( this.props.dispatch, null, this.state.users_per_page, this.state.current_page ) )
 		})
 	}
-
+/*
 	componentWillReceiveProps( props ) {
+		console.log( "componentWillReceiveProps" )
+		console.log( "this.props.match.params.page", this.props.match.params.page )
 
+		// to avoid a state-change loop
 		if ( this.state.current_page === parseInt( this.props.match.params.page ) )
 			return;
 
@@ -43,6 +48,19 @@ export default class Users extends React.Component {
 			this.props.dispatch( fetchUsers( this.props.dispatch, null, this.state.users_per_page, this.state.current_page ) )
 		})
 
+	}
+*/
+	changePage( number ) {
+		console.log( "changePage [%s]", number )
+
+		if ( this.state.current_page === number )
+			return;
+
+		this.setState({
+			current_page: number || 1,
+		}, () => {
+			this.props.dispatch( fetchUsers( this.props.dispatch, null, this.state.users_per_page, this.state.current_page ) )
+		})
 	}
 
 	formatNumber( number ) {
@@ -73,6 +91,9 @@ export default class Users extends React.Component {
 			})
 		}
 
+		let previousLink = ( hasPreviousPage ) ? <Link to={  "/challengers/" + ( this.state.current_page - 1 ) } class="previous" onClick={ () => this.changePage( ( this.state.current_page - 1 ) ) }></Link> : <Link to="/" class="previous disabled"></Link>
+		let nextLink = ( hasNextPage ) ? <Link to={  "/challengers/" + ( this.state.current_page + 1 ) } class="next" onClick={ () => this.changePage( ( this.state.current_page + 1 ) ) }></Link> : <Link to="/" class="next disabled"></Link>
+
 		return (
 			<div>
 				<Error messages={ errorMessages } />
@@ -81,7 +102,10 @@ export default class Users extends React.Component {
 					<div className="challengers">
 						{ content }
 					</div>
-					<UsersNav hasPreviousPage={ hasPreviousPage } hasNextPage={ hasNextPage } currentPage={ this.state.current_page } />
+					<nav id="challengers_nav" class="footer">
+						{ previousLink }
+						{ nextLink }
+					</nav>
 				</div>
 			</div>
 		)
