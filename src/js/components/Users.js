@@ -54,15 +54,11 @@ export default class Users extends React.Component {
 		const { users, error, hasPreviousPage, hasNextPage } = this.props;
 
 		let content
-		let errorMessages = []
 
 		if ( ! users || ! users[0].name ) {
 			this.changePage( 1 )
 			if ( this.props.location.pathname != "/challengers" )
 				this.props.history.push( "/challengers" )
-		}
-		if ( error ) {
-			errorMessages = error
 		}
 		else {
 			content = users.map( ( user ) => {
@@ -96,7 +92,7 @@ export default class Users extends React.Component {
 
 		return (
 			<div>
-				<Error messages={ errorMessages } />
+				<Error error={ [ error ] } />
 				<TopNav title="Challengers" showBackButton={ false } />
 				<div className="container" id="main_content">
 					<div className="challengers">

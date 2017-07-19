@@ -7,14 +7,14 @@ import Error from "./Error"
 import TopNav from "./TopNav"
 import SubNav from "./SubNav"
 import PageNotFound from "./PageNotFound"
+import PageNotAuthorized from "./PageNotAuthorized"
 
 require( "../less/User.less" )
 
 @connect( ( store ) => {
 	return {
 		user: store.userReceipts.user,
-		error: store.userDriveThru.error,
-		statusCode: store.userDriveThru.statusCode,
+		error: store.userReceipts.error,
 	}
 })
 
@@ -32,34 +32,42 @@ export default class UserReceipts extends React.Component {
 
 	render() {
 
-		const { user, error, statusCode } = this.props;
-
+		const { user, error } = this.props;
+		console.log( "this.props", this.props )
 		let mappedReceipts = []
-		let errorMessages = []
 
+		
 		if ( error ) {
-			if ( statusCode === 404 ) {
+			console.log( "error", error )
+			if ( error.status === 404 ) {
+				console.log( "404" )
 				return (
 					<PageNotFound error="Page was not found yo!" />
 				)
 			}
-			errorMessages = error
+			else if ( error.status === 403 ) {
+				console.log( "403" )
+				return (
+					<PageNotAuthorized returnUrl={ this.props.location.pathname } />
+				)
+			}
 		}
-		else {
-			const receipt_keys = Object.keys( user.receipts ).sort( ( a, b ) => { return a - b });
-			receipt_keys.forEach( ( number ) => {
-				let receipt = user.receipts[ number ];
-				let classes = [ "number", "receipt", "single" ];
-				if ( receipt.amount > 0 )
-					classes.push( "has" );
-				if ( receipt.amount > 1 )
-					classes.push( "multiple" );
-				mappedReceipts.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
-			} )
-		}
+			
+		const receipt_keys = Object.keys( user.receipts ).sort( ( a, b ) => { return a - b });
+		receipt_keys.forEach( ( number ) => {
+			let receipt = user.receipts[ number ];
+			let classes = [ "number", "receipt", "single" ];
+			if ( receipt.amount > 0 )
+				classes.push( "has" );
+			if ( receipt.amount > 1 )
+				classes.push( "multiple" );
+			mappedReceipts.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
+		} )
+
 
 		return	(
 			<div>
+				<Error error={ [ error ] } />
 				<TopNav title={ "@" + user.name } showBackButton={ true } />
 				<SubNav url={ this.props.match.url } />
 				<div class="container" id="main_content">

@@ -1,5 +1,6 @@
 import axios from "axios"
 
+
 /*
 {
 	type: "FETCH_USERS_FULFILLED",
@@ -17,19 +18,13 @@ export function fetchUsers( dispatch, search, amount, page ) {
 
 	dispatch({ type: "FETCH_USERS_PENDING" })
 	return function ( dispatch ) {
-		axios.post( "http://localhost:3000/api/users/list", { search: search, amount: amount, page: page } )
+
+		axios( process.env.REACT_APP_BACKEND_URL + "/api/users/list", { method: "post", data: { search: search, amount: amount, page: page }, withCredentials: true } )
 			.then( ( response ) => {
 				dispatch({ type: "FETCH_USERS_FULFILLED", payload: response.data })
 			})
 			.catch( ( error ) => {
-
-				let message;
-				if ( error.response )
-					message = "["+ error.response.status +"] "+ error.response.data
-				else
-					message = error.message;
-
-				dispatch({ type: "FETCH_USERS_REJECTED", payload: { error: message } })
+				dispatch({ type: "FETCH_USERS_REJECTED", payload: { message: error.response.data, status: error.response.status } })
 			});
 	}
 }

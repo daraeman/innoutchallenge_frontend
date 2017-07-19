@@ -4,23 +4,33 @@ require( "../less/Error.less" )
 
 export default class Error extends React.Component {
 
+	createError( error ) {
+		if ( ! error )
+			error = {}
+		let messages = []
+		if ( error.message )
+			messages.push( error.message )
+		if ( error.status === 403 )
+			messages.push( "Unauthorized, please log in" )
+		return messages
+	}
+
 	render() {
 
-		let messages
-		if ( typeof this.props.messages === "string" )
-			messages = [ this.props.messages ]
-		else if ( typeof this.props.messages === "object" )
-			messages = [ this.props.messages.error ]
-		else
-			messages = this.props.messages
+		let errors = this.props.error
 
-		const content = messages.map( ( message, index ) => (
+		let new_messages = []
+		errors.forEach( ( error ) => {
+			new_messages = new_messages.concat( this.createError( error ) )
+		})
+
+		const content = new_messages.map( ( message, index ) => (
 			<div class="error" key={ index }>
 				{ message }
 			</div>
 		))
 
-		return	(
+		return (
 			<div class="errors">
 				{ content }
 			</div>

@@ -6,6 +6,11 @@ import promise from "redux-promise-middleware"
 
 import reducer from "./reducers"
 
-const middleware = applyMiddleware( promise(), thunk, createLogger() )
+const customMiddleWare = store => next => action => {
+	console.log( "customMiddleWare triggered:", action );
+	next( action );
+}
+
+const middleware = applyMiddleware( customMiddleWare, promise(), thunk, createLogger() )
 
 export default createStore( reducer, middleware )

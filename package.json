@@ -1,10 +1,13 @@
 {
-  "name": "react_redux_test",
-  "version": "0.1.0",
+  "name": "innoutchallenge_frontend",
+  "version": "1.0.0",
   "private": true,
   "main": "webpack.config.js",
+  "author": "David Rae",
+  "license": "Apache-2.0",
   "dependencies": {
     "axios": "^0.16.2",
+    "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-react-html-attrs": "^2.0.0",
@@ -13,26 +16,27 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^0.28.4",
+    "dotenv": "^4.0.0",
     "less": "^2.7.2",
-    "less-loader": "^4.0.4",
+    "less-loader": "^4.0.5",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.2",
     "redux": "^3.7.1",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^4.3.0",
     "redux-thunk": "^2.2.0",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.3.0",
     "webpack-dev-server": "^2.5.0"
   },
-  "devDependencies": {
-    "react-scripts": "1.0.7"
-  },
   "scripts": {
-    "start": "react-scripts start",
     "dev": "node_modules/.bin/webpack-dev-server",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "build": "webpack --config webpack.config.js",
+    "postinstall": "webpack --config webpack.config.js",
+    "test": "echo 'no tests'"
   }
 }
