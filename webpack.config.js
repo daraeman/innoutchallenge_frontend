@@ -3,10 +3,8 @@ const webpack = require( "webpack" );
 const path = require( "path" );
 
 module.exports = {
-//	target: "node",
 	node: {
 		fs: "empty",
-//		process: false,
 	},
 	context: path.resolve( __dirname, "src" ),
 	devtool: debug ? "inline-sourcemap" : null,

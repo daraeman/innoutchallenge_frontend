@@ -1,7 +1,14 @@
 import React from "react"
+import { connect } from "react-redux"
 import { NavLink } from "react-router-dom";
 
 require( "../less/TopNav.less" )
+
+@connect( ( store ) => {
+	return {
+		authenticated: store.authCheck.authenticated,
+	}
+})
 
 export default class TopNav extends React.Component {
 
@@ -10,7 +17,6 @@ export default class TopNav extends React.Component {
 		this.state = {
 			sidebarClass: "closed",
 			backButtonClass: ( this.props.showBackButton ) ? "show" : "hide",
-			tempIsAuthenticated: false,
 		};
 
 		this.sidebarToggle = this.sidebarToggle.bind( this );
@@ -25,9 +31,18 @@ export default class TopNav extends React.Component {
 
 	render() {
 
-		console.log( "process.env", process.env )
+		let { authenticated } = this.props
+
+		console.log( "TopNav authenticated", authenticated )
 
 		const title = this.props.title
+
+		let authLinks
+		if ( authenticated )
+			authLinks = ( <li><a href="/signout" onClick={ this.sidebarToggle }>Sign Out</a></li> )
+		else
+			authLinks = ( <li><a href="/signin" onClick={ this.sidebarToggle }>Sign In</a></li> )
+
 
 		return (
 			<div class="top">
@@ -47,11 +62,7 @@ export default class TopNav extends React.Component {
 				<div id="side_nav_clickfield" class={ this.state.sidebarClass } onClick={ this.sidebarToggle }></div>
 				<ul id="side_nav" class={ this.state.sidebarClass }>
 					<li><NavLink to="/challengers" activeClassName="active" onClick={ this.sidebarToggle }>Challengers</NavLink></li>
-					{ ( this.state.tempIsAuthenticated ) && (
-						<li><NavLink to="/account" activeClassName="active" onClick={ this.sidebarToggle }>Account</NavLink></li>
-					) || (
-						<li><a href={ process.env.REACT_APP_BACKEND_URL + "/signin" } onClick={ this.sidebarToggle }>Sign In</a></li>
-					) }
+					{ authLinks }
 				</ul>
 			</div>
 		)
