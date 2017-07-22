@@ -15,14 +15,14 @@ export default class PageNotAuthorized extends React.Component {
 	render() {
 
 		let return_param = ( this.props.returnUrl ) ? "/return/" + encodeURIComponent( this.sanitizeUrl( this.props.returnUrl ) ) : ""
-		let signin_url = "/signin" + return_param
+		let signin_url = process.env.REACT_APP_BACKEND_URL + "/signin" + return_param
 
 		return (
 			<div>
-				<TopNav title="Page Not Found" />
+				<TopNav title="Not Authorized" />
 				<div class="container" id="main_content">
 					<div class="text">You are not authorized to view this page.</div>
-					<Link to={ signin_url } className="button">Sign In to continue</Link>
+					<a href={ signin_url } className="button">Sign In to continue</a>
 				</div>
 			</div>
 		)

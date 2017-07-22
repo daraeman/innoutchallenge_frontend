@@ -38,10 +38,21 @@ export default class TopNav extends React.Component {
 		const title = this.props.title
 
 		let authLinks
-		if ( authenticated )
-			authLinks = ( <li><a href="/signout" onClick={ this.sidebarToggle }>Sign Out</a></li> )
-		else
-			authLinks = ( <li><a href="/signin" onClick={ this.sidebarToggle }>Sign In</a></li> )
+		if ( authenticated ) {
+			authLinks = (
+				<div>
+					<li><a href="/account/settings" onClick={ this.sidebarToggle }>Account</a></li>
+					<li><a href="/signout" onClick={ this.sidebarToggle }>Sign Out</a></li>
+				</div>
+			)
+		}
+		else {
+			authLinks = (
+				<div>
+					<li><a href="/signin" onClick={ this.sidebarToggle }>Sign In</a></li>
+				</div>
+			)
+		}
 
 
 		return (

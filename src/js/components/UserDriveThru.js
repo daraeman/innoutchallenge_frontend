@@ -61,7 +61,7 @@ export default class UserReceipts extends React.Component {
 			<div>
 				<Error error={ [ error ] } />
 				<TopNav title={ "@" + user.name } showBackButton={ true } />
-				<SubNav url={ this.props.match.url } />
+				<SubNav url={ this.props.match.url } type="user" />
 				<div class="container" id="main_content">
 					<div class="section totals">
 						<div class="item circle left">

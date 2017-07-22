@@ -1,37 +1,5 @@
 import axios from "axios"
 
-function random( min, max ) {
-	min = Math.ceil( min );
-	max = Math.floor( max );
-	return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
-}
-
-function fetchReceipts( username ) {
-	var receipts = []
-	for ( let i = 1; i <= 99; i++ ) {
-		if ( i == 69 )
-			continue;
-		receipts.push( { number: i, amount: random( 0, 50 ) } )
-	}
-	return receipts
-}
-
-function fetchStores( username ) {
-	var stores = []
-	for ( let i = 1; i <= 300; i++ ) {
-		stores.push( { number: i, amount: random( 0, 50 ) } )
-	}
-	return stores
-}
-
-function fetchDriveThru( username ) {
-	var drivethru = []
-	for ( let i = 4000; i <= 4999; i++ ) {
-		drivethru.push( { number: i, amount: random( 0, 50 ) } )
-	}
-	return drivethru
-}
-
 /*
 {
 	type: "FETCH_USER_RECEIPTS_FULFILLED",

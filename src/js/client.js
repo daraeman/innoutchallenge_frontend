@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, browserHistory, Switch, Redirect } from
 
 import AuthCheck from "./components/AuthCheck"
 
+import Account from "./components/Account"
+import AccountReceipts from "./components/AccountReceipts"
 import Users from "./components/Users"
 import UserReceipts from "./components/UserReceipts"
 import UserStores from "./components/UserStores"
@@ -29,6 +31,9 @@ ReactDOM.render(
 						<Route path="/@:user(\w+)/stores" exact component={ UserStores } />
 						<Route path="/@:user(\w+)/receipts" exact component={ UserReceipts } />
 						<Route path="/@:user(\w+)/drivethru" exact component={ UserDriveThru } />
+						<Redirect from="/account" to="/account/settings" exact />
+						<Route path="/account/settings" component={ Account } exact />
+						<Route path="/account/receipts" component={ AccountReceipts } exact />
 						<Route path="/" component={ Users } exact />
 						<Route path="/challengers" component={ Users } exact />
 						<Redirect from="/challengers/0" to="/challengers" exact />
