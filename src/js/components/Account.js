@@ -29,9 +29,12 @@ export default class Account extends React.Component {
 	}
 
 	changeSettingHandler( event ) {
-		let option = event.target.dataset.option;
+		let settings = []
+		let setting = {}
+
+		let option = event.target.dataset.option
+
 		let category
-		let value
 		if ( option.match( /^tweet/ ) )
 			category = "tweet";
 		else if ( option.match( /^dm/ ) )
@@ -39,15 +42,27 @@ export default class Account extends React.Component {
 		else
 			throw new Error( "invalid setting category" )
 
-		option = option.replace( /^(tweet|dm)_/, "" );
-		console.log( "this.props.account.settings = ", this.props.account.settings )
-		console.log( "this.props.account.settings[ "+category+" ][ "+option+" ] = ", this.props.account.settings[ category ][ option ] )
-		value = ! this.props.account.settings[ category ][ option ]
+		option = option.replace( /^(tweet|dm)_/, "" )
 
-		console.log( "option", option )
-		console.log( "category", category )
-		console.log( "value", value )
-		this.props.dispatch( changeSetting( this.props.dispatch, category, option, value ) )
+		let value = ! this.props.account.settings[ category ][ option ]
+
+		setting.category = category
+		setting.option = option
+		setting.value = value
+
+		settings.push( setting )
+
+		if ( option === "unique_numbers" || option === "milestones" ) {
+			setting = {
+				category: ( category === "dm" ) ? "tweet" : "dm",
+				option: option,
+				value: ! value,
+			}
+			settings.push( setting )
+		}
+
+		this.props.dispatch( changeSetting( this.props.dispatch, settings ) )
+		
 	}
 
 	deleteAccountHandler() {
@@ -81,7 +96,7 @@ export default class Account extends React.Component {
 				<Error error={ [ error ] } />
 				<TopNav title="Account" showBackButton={ false } />
 				<SubNav url={ this.props.match.url } type="account" />
-				<div class="container" id="main_content">
+				<div class="container" id="account_content">
 					<div class="section">
 						<div class="title">Tweet my:</div>
 						<div class="options">

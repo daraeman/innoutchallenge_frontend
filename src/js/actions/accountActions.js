@@ -20,18 +20,14 @@ export function fetchAccount( dispatch ) {
 	}
 }
 
-export function changeSetting( dispatch, category, option, value ) {
+export function changeSetting( dispatch, settings ) {
 
 	dispatch({ type: "CHANGE_ACCOUNT_PENDING" })
 	return function ( dispatch ) {
 		axios( process.env.REACT_APP_BACKEND_URL + "/api/account/set", {
 			method: "post",
 			withCredentials: true,
-			data: {
-				category: category,
-				option: option,
-				value: value,
-			},
+			data: settings,
 		})
 		.then( ( response ) => {
 			console.log( "manual CHANGE_ACCOUNT_FULFILLED" )
