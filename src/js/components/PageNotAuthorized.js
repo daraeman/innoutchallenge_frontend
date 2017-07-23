@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
+require( "dotenv" ).config()
 
 import TopNav from "./TopNav"
 
@@ -14,9 +15,11 @@ export default class PageNotAuthorized extends React.Component {
 
 	render() {
 
-		let return_param = ( this.props.returnUrl ) ? "/return/" + encodeURIComponent( this.sanitizeUrl( this.props.returnUrl ) ) : ""
-		let signin_url = process.env.REACT_APP_BACKEND_URL + "/signin" + return_param
+		console.log( "process.env", process.env )
 
+		let return_param = ( this.props.returnUrl ) ? "/return/" + encodeURIComponent( process.env.REACT_APP_FRONTEND_URL + this.sanitizeUrl( this.props.returnUrl ) ) : ""
+		let signin_url = process.env.REACT_APP_BACKEND_URL + "/signin" + return_param
+		
 		return (
 			<div>
 				<TopNav title="Not Authorized" />

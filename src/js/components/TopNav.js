@@ -42,14 +42,14 @@ export default class TopNav extends React.Component {
 			authLinks = (
 				<div>
 					<li><a href="/account/settings" onClick={ this.sidebarToggle }>Account</a></li>
-					<li><a href="/signout" onClick={ this.sidebarToggle }>Sign Out</a></li>
+					<li><a href={ process.env.REACT_APP_BACKEND_URL + "/signout" } onClick={ this.sidebarToggle }>Sign Out</a></li>
 				</div>
 			)
 		}
 		else {
 			authLinks = (
 				<div>
-					<li><a href="/signin" onClick={ this.sidebarToggle }>Sign In</a></li>
+					<li><a href={ process.env.REACT_APP_BACKEND_URL + "/signin" } onClick={ this.sidebarToggle }>Sign In</a></li>
 				</div>
 			)
 		}

@@ -7,6 +7,14 @@
 #top_nav {
 	height: @top_nav_height;
 	text-align: center;
+	position: relative;
+
+	&.before {
+		content: "";
+		position: absolute;
+		outline: 1px solid red;
+		height: 5px;
+	}
 
 	> * {
 		display: inline-block;
