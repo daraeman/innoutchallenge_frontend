@@ -1,4 +1,4 @@
-@top_nav_height: 60px;
+@top_nav_height: 73px;
 .top_nav_font {
 	font-family: Georgia, serif;
 	font-style: italic;
@@ -8,12 +8,19 @@
 	height: @top_nav_height;
 	text-align: center;
 	position: relative;
+	z-index: 2;
 
-	&.before {
+	&:before {
 		content: "";
 		position: absolute;
-		outline: 1px solid red;
+		background: -moz-linear-gradient( top, rgba( 0,0,0, 0.10 ) 0%, rgba( 0,0,0, 0 ) 100% );
+		background: -webkit-linear-gradient( top, rgba( 0,0,0, 0.10 ) 0%, rgba( 0,0,0, 0 ) 100% );
+		background: linear-gradient( to bottom, rgba( 0,0,0, 0.10 ) 0%, rgba( 0,0,0, 0 ) 100% );
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#a6000000", endColorstr="#00000000", GradientType = 0 );
 		height: 5px;
+		width: 100%;
+		left: 0px;
+		bottom: 1px;
 	}
 
 	> * {
@@ -38,26 +45,20 @@
 
 	.text {
 		font-size: 27px;
-		line-height: @top_nav_height;
+		line-height: calc( @top_nav_height - 4 );
 		.top_nav_font;
 		color: rgb( 71,71,71 );
+		padding-bottom: 2px;
 
-		.not_editing {
+		&.search {
 
-		}
-		.is_editing {
-			display: none;
-			line-height: 45px;
-			padding: 0px 11px 0px 10px;
-		}
-
-		&.editing {
-
-			.not_editing {
-				display: none;
-			}
-			.is_editing {
-				display: inline-block;
+			input {
+			    font-size: inherit;
+				font-family: inherit;
+				font-style: inherit;
+				color: inherit;
+				border: 0px;
+				padding: 5px 30px;
 			}
 		}
 	}
@@ -176,6 +177,18 @@
 			}
 		}
 	}
+
+	.active {
+		li {
+			a {
+				color: red;
+			}
+		}
+	}
+}
+
+#search_button {
+	cursor: pointer;
 }
 
 @media screen and ( max-height: 450px ) {

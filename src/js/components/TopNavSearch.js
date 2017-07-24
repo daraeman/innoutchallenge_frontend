@@ -2,14 +2,11 @@ import React from "react"
 import { connect } from "react-redux"
 import { NavLink } from "react-router-dom";
 
-import { fetchUsers, changeSearch } from "../actions/usersActions"
-
 require( "../less/TopNav.less" )
 
 @connect( ( store ) => {
 	return {
 		authenticated: store.authCheck.authenticated,
-		searchText: store.users.searchText,
 	}
 })
 
@@ -20,13 +17,9 @@ export default class TopNav extends React.Component {
 		this.state = {
 			sidebarClass: "closed",
 			backButtonClass: ( this.props.showBackButton ) ? "show" : "hide",
-			usersPerPage: this.props.usersPerPage || 6,
-			currentPage: this.props.currentPage || 1,
-			searchText: "",
 		};
 
 		this.sidebarToggle = this.sidebarToggle.bind( this );
-		this.search = this.search.bind( this );
 	}
 
 	sidebarToggle() {
@@ -36,26 +29,13 @@ export default class TopNav extends React.Component {
 		});
 	}
 
-	search() {
-
-		let text = document.getElementById( "searchText" ).value
-
-		if ( ! text.length )
-			return
-
-		if ( this.state.searchText == text )
-			return
-
-		this.setState({
-			searchText: text,
-		}, () => {
-			return this.props.dispatch( fetchUsers( this.props.dispatch, this.state.searchText, this.state.usersPerPage, this.state.currentPage ) )
-		})
-	}
-
 	render() {
 
-		let { authenticated, searchText, title } = this.props
+		let { authenticated } = this.props
+
+		console.log( "TopNav authenticated", authenticated )
+
+		const title = this.props.title
 
 		let authLinks
 		if ( authenticated ) {
@@ -74,22 +54,6 @@ export default class TopNav extends React.Component {
 			)
 		}
 
-		let title_el
-		if ( this.props.search ) {
-			title_el = (
-				<div class="text search">
-					<input id="searchText" type="text" placeholder="Search for challenger..." defaultValue={ searchText } onChange={ this.search }/>
-					<i id="search_button" class="fa fa-search" onClick={ this.search }></i>
-				</div>
-			)
-		}
-		else {
-			title_el = (
-				<div class="text">
-					{ title }
-				</div>
-			)
-		}
 
 		return (
 			<div class="top">
@@ -102,12 +66,13 @@ export default class TopNav extends React.Component {
 							<i class="fa fa-bars icon" aria-hidden="true"></i>
 						</li>
 					</ul>
-					{ title_el }
+					<div class="text">
+						{ title }
+					</div>
 				</nav>
 				<div id="side_nav_clickfield" class={ this.state.sidebarClass } onClick={ this.sidebarToggle }></div>
 				<ul id="side_nav" class={ this.state.sidebarClass }>
 					<li><NavLink to="/challengers" activeClassName="active" onClick={ this.sidebarToggle }>Challengers</NavLink></li>
-					<li><NavLink to="/search" activeClassName="active" onClick={ this.sidebarToggle }>Search</NavLink></li>
 					{ authLinks }
 				</ul>
 			</div>

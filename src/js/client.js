@@ -9,6 +9,7 @@ import AuthCheck from "./components/AuthCheck"
 import Account from "./components/Account"
 import AccountReceipts from "./components/AccountReceipts"
 import Users from "./components/Users"
+import SearchUsers from "./components/SearchUsers"
 import UserReceipts from "./components/UserReceipts"
 import UserStores from "./components/UserStores"
 import UserDriveThru from "./components/UserDriveThru"
@@ -38,6 +39,7 @@ ReactDOM.render(
 						<Route path="/account/settings" component={ Account } exact />
 						<Route path="/account/receipts" component={ AccountReceipts } exact />
 						<Route path="/" component={ Users } exact />
+						<Route path="/search" component={ SearchUsers } exact />
 						<Route path="/challengers" component={ Users } exact />
 						<Redirect from="/challengers/0" to="/challengers" exact />
 						<Redirect from="/challengers/1" to="/challengers" exact />

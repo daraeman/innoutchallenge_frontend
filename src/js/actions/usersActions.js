@@ -24,7 +24,14 @@ export function fetchUsers( dispatch, search, amount, page ) {
 				dispatch({ type: "FETCH_USERS_FULFILLED", payload: response.data })
 			})
 			.catch( ( error ) => {
+				console.log( "error", error )
 				dispatch({ type: "FETCH_USERS_REJECTED", payload: { message: error.response.data, status: error.response.status } })
 			});
+	}
+}
+
+export function clearUsers( dispatch ) {
+	return function ( dispatch ) {
+		dispatch({ type: "CLEAR_USERS_FULFILLED", payload: true })
 	}
 }
