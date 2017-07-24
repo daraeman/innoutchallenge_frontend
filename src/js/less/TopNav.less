@@ -167,22 +167,45 @@
 			padding: 8px 8px 8px 32px;
 			text-decoration: none;
 			font-size: 20px;
-			color: #818181;
+			color: rgb( 130,130,130 );
 			display: block;
 			transition: 0.3s;
 			cursor: pointer;
+			position: relative;
+			white-space: nowrap;
+
+			&:before {
+				content: "";
+				position: absolute;
+				top: 17px;
+				left: 19px;
+				width: 5px;
+				height: 5px;
+				background: rgba( 200,200,200, 0 );
+				border-radius: 20px;
+				transition: 0.3s;
+			}
 
 			&:hover {
-				color: #f1f1f1;
+				color: rgb( 200,200,200 );
+
+				&:before {
+					background: rgba( 200,200,200, 1 );
+				}
 			}
 		}
 	}
 
 	.active {
-		li {
-			a {
-				color: red;
-			}
+		color: rgb( 200,0,0 );
+		cursor: default;
+
+		&:before {
+			background: rgb( 200,0,0 );
+		}
+
+		&:hover {
+			color: rgb( 200,0,0 );
 		}
 	}
 }
