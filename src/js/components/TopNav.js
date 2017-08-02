@@ -79,7 +79,7 @@ export default class TopNav extends React.Component {
 			title_el = (
 				<div class="text search">
 					<input id="searchText" type="text" placeholder="Search for challenger..." defaultValue={ searchText } onChange={ this.search }/>
-					<i id="search_button" class="fa fa-search" onClick={ this.search }></i>
+					<i id="search_button" class="fa fa-search search_button" onClick={ this.search }></i>
 				</div>
 			)
 		}

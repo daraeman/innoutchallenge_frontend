@@ -21,12 +21,14 @@ require( "../less/User.less" )
 export default class UserStores extends React.Component {
 
 	componentWillMount() {
-		this.props.dispatch( fetchUserStores( this.props.dispatch, this.props.match.params.user ) )
+		this.props.dispatch( fetchUserStores( this.props.dispatch, this.props.match.params.user, true ) )
 	}
 
 	render() {
 
 		const { user, error } = this.props;
+
+		console.log( "user", user )
 
 		let mappedStores = []
 
@@ -50,12 +52,12 @@ export default class UserStores extends React.Component {
 		store_keys.forEach( ( number ) => {
 			let store = user.stores[ number ];
 			let classes = [ "number", "store" ];
-			if ( store.amount > 0 ) {
-				console.log( "amount: ", store.amount )
+			if ( store.amount > 0 )
 				classes.push( "has" );
-			}
 			if ( store.amount > 1 )
 				classes.push( "multiple" );
+			if ( user.latest_receipt && user.latest_receipt.store.number == number )
+				classes.push( "latest" );
 			mappedStores.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
 		} )
 
@@ -83,6 +85,9 @@ export default class UserStores extends React.Component {
 								{ user.totals.stores.remaining }
 							</div>
 						</div>
+					</div>
+					<div class="latest_tweet">
+						{ user.latest_receipt.tweet.data.text }<span class="date"> - 1 day ago</span>
 					</div>
 					<div class="section individuals">
 						<ul>

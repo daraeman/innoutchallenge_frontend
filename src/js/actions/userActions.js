@@ -16,11 +16,11 @@ import axios from "axios"
 	}
 }
 */
-export function fetchUserReceipts( dispatch, name ) {
+export function fetchUserReceipts( dispatch, name, latest_receipt ) {
 
 	dispatch({ type: "FETCH_USER_RECEIPTS_PENDING" })
 	return function ( dispatch ) {
-		axios( process.env.REACT_APP_BACKEND_URL + "/api/user/receipts", { method: "post", data: { name: name }, withCredentials: true } )
+		axios( process.env.REACT_APP_BACKEND_URL + "/api/user/receipts", { method: "post", data: { name: name, return_latest_receipt: latest_receipt }, withCredentials: true } )
 			.then( ( response ) => {
 				dispatch({ type: "FETCH_USER_RECEIPTS_FULFILLED", payload: response.data })
 			})
@@ -36,11 +36,11 @@ export function fetchUserReceipts( dispatch, name ) {
 	}
 }
 
-export function fetchUserStores( dispatch, name ) {
+export function fetchUserStores( dispatch, name, latest_receipt ) {
 
 	dispatch({ type: "FETCH_USER_STORES_PENDING" })
 	return function ( dispatch ) {
-		axios( process.env.REACT_APP_BACKEND_URL + "/api/user/stores", { method: "post", data: { name: name }, withCredentials: true } )
+		axios( process.env.REACT_APP_BACKEND_URL + "/api/user/stores", { method: "post", data: { name: name, return_latest_receipt: latest_receipt }, withCredentials: true } )
 			.then( ( response ) => {
 				dispatch({ type: "FETCH_USER_STORES_FULFILLED", payload: response.data })
 			})
@@ -52,16 +52,18 @@ export function fetchUserStores( dispatch, name ) {
 				else
 					message = error.message;
 
-				dispatch({ type: "FETCH_USER_STORES_REJECTED", payload: { error: message, status: error.response.status } })
+				console.log( "error", error )
+
+				dispatch({ type: "FETCH_USER_STORES_REJECTED", payload: { error: message, status: error.response.status || 500 } })
 			});
 	}
 }
 
-export function fetchUserDriveThru( dispatch, name ) {
+export function fetchUserDriveThru( dispatch, name, latest_receipt ) {
 
 	dispatch({ type: "FETCH_USER_DRIVETHRU_PENDING" })
 	return function ( dispatch ) {
-		axios( process.env.REACT_APP_BACKEND_URL + "/api/user/drivethru", { method: "post", data: { name: name }, withCredentials: true } )
+		axios( process.env.REACT_APP_BACKEND_URL + "/api/user/drivethru", { method: "post", data: { name: name, return_latest_receipt: latest_receipt }, withCredentials: true } )
 			.then( ( response ) => {
 				dispatch({ type: "FETCH_USER_DRIVETHRU_FULFILLED", payload: response.data })
 			})
@@ -75,7 +77,7 @@ export function fetchUserDriveThru( dispatch, name ) {
 				else
 					message = error.message;
 
-				dispatch({ type: "FETCH_USER_DRIVETHRU_REJECTED", payload: { error: message, status: error.response.status } })
+				dispatch({ type: "FETCH_USER_DRIVETHRU_REJECTED", payload: { error: message, status: error.response.status || 500 } })
 			});
 	}
 }

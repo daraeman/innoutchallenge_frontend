@@ -21,7 +21,7 @@ require( "../less/User.less" )
 export default class UserReceipts extends React.Component {
 
 	componentWillMount() {
-		this.props.dispatch( fetchUserReceipts( this.props.dispatch, this.props.match.params.user ) )
+		this.props.dispatch( fetchUserReceipts( this.props.dispatch, this.props.match.params.user, true ) )
 	}
 
 	formatNumber( number ) {
@@ -35,6 +35,8 @@ export default class UserReceipts extends React.Component {
 		const { user, error } = this.props;
 		console.log( "this.props", this.props )
 		let mappedReceipts = []
+
+		console.log( "user", user )
 
 		
 		if ( error ) {
@@ -61,6 +63,8 @@ export default class UserReceipts extends React.Component {
 				classes.push( "has" );
 			if ( receipt.amount > 1 )
 				classes.push( "multiple" );
+			if ( user.latest_receipt && user.latest_receipt.number == number )
+				classes.push( "latest" );
 			mappedReceipts.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
 		} )
 
@@ -96,6 +100,9 @@ export default class UserReceipts extends React.Component {
 								{ this.formatNumber( user.totals.receipts.remaining ) }
 							</div>
 						</div>
+					</div>
+					<div class="latest_tweet">
+						{ user.latest_receipt.tweet.data.text }<span class="date"> - 1 day ago</span>
 					</div>
 					<div class="section individuals">
 						<ul>

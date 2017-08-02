@@ -59,6 +59,17 @@
 				color: inherit;
 				border: 0px;
 				padding: 5px 30px;
+				outline: 0px;
+				border-radius: 30px;
+
+				&:focus {
+					border: 1px solid rgb( 220,220,220 );
+				}
+			}
+
+			.search_button {
+				cursor: pointer;
+				color: rgb( 200,200,200 );
 			}
 		}
 	}
@@ -208,10 +219,6 @@
 			color: rgb( 200,0,0 );
 		}
 	}
-}
-
-#search_button {
-	cursor: pointer;
 }
 
 @media screen and ( max-height: 450px ) {

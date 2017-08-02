@@ -10,6 +10,14 @@ export default function reducer(
 				}
 			},
 			stores: [],
+			latest_receipt: {
+				number: null,
+				tweet: {
+					data: {
+						text: null,
+					}
+				}
+			},
 		},
 		fetching: false,
 		fetched: false,
