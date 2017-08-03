@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, browserHistory, Switch, Redirect } from
 
 import AuthCheck from "./components/AuthCheck"
 
+import Splash from "./components/Splash"
 import Account from "./components/Account"
 import AccountReceipts from "./components/AccountReceipts"
 import Users from "./components/Users"
@@ -38,7 +39,7 @@ ReactDOM.render(
 						<Redirect from="/account" to="/account/settings" exact />
 						<Route path="/account/settings" component={ Account } exact />
 						<Route path="/account/receipts" component={ AccountReceipts } exact />
-						<Route path="/" component={ Users } exact />
+						<Route path="/" component={ Splash } exact />
 						<Route path="/search" component={ SearchUsers } exact />
 						<Route path="/challengers" component={ Users } exact />
 						<Redirect from="/challengers/0" to="/challengers" exact />
