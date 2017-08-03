@@ -1,5 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
+import TimeAgo from "timeago-react"
 
 import { fetchUserStores } from "../actions/userActions"
 
@@ -48,19 +49,38 @@ export default class UserStores extends React.Component {
 			}
 		}
 
-		const store_keys = Object.keys( user.stores ).sort( ( a, b ) => { return a - b });
-		store_keys.forEach( ( number ) => {
-			let store = user.stores[ number ];
-			let classes = [ "number", "store" ];
-			if ( store.amount > 0 )
-				classes.push( "has" );
-			if ( store.amount > 1 )
-				classes.push( "multiple" );
-			if ( user.latest_receipt && user.latest_receipt.store.number == number )
-				classes.push( "latest" );
-			mappedStores.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
-		} )
-
+		let content
+		if ( ! Object.keys( user.stores ).length ) {
+			console.error( "no stores" )
+			user.totals.stores.total = user.totals.stores.total || 0
+			user.totals.stores.unique = user.totals.stores.unique || 0
+		}
+		else {
+			const store_keys = Object.keys( user.stores ).sort( ( a, b ) => { return a - b });
+			store_keys.forEach( ( number ) => {
+				let store = user.stores[ number ];
+				let classes = [ "number", "store" ];
+				if ( store.amount > 0 )
+					classes.push( "has" );
+				if ( store.amount > 1 )
+					classes.push( "multiple" );
+				if ( user.latest_receipt && user.latest_receipt.store.number == number )
+					classes.push( "latest" );
+				mappedStores.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
+			})
+			content = (
+				<div>
+					<div class="latest_tweet">
+						{ user.latest_receipt.tweet.data.text }<span class="date"> - <span title={ user.latest_receipt.date }><TimeAgo datetime={ user.latest_receipt.date } /></span></span>
+					</div>
+					<div class="section individuals">
+						<ul>
+							{ mappedStores }
+						</ul>
+					</div>
+				</div>
+			)
+		}
 
 		return	(
 			<div>
@@ -86,14 +106,7 @@ export default class UserStores extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div class="latest_tweet">
-						{ user.latest_receipt.tweet.data.text }<span class="date"> - 1 day ago</span>
-					</div>
-					<div class="section individuals">
-						<ul>
-							{ mappedStores }
-						</ul>
-					</div>
+					{ content }
 				</div>
 			</div>
 		)

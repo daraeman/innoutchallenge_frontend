@@ -30,6 +30,7 @@
     "redux-promise-middleware": "^4.2.1",
     "redux-thunk": "^2.2.0",
     "style-loader": "^0.18.2",
+    "timeago-react": "^1.2.2",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.5.0"
   },
@@ -38,5 +39,9 @@
     "build": "webpack --config webpack.config.js",
     "postinstall": "webpack --config webpack.config.js",
     "test": "echo 'no tests'"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
+    "babel-plugin-transform-es3-property-literals": "^6.22.0"
   }
 }

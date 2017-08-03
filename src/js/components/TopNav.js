@@ -95,7 +95,7 @@ export default class TopNav extends React.Component {
 			<div class="top">
 				<nav id="top_nav">
 					<div class="logo">
-						<NavLink to="/" class={ this.state.backButtonClass }><i class="fa fa-close" aria-hidden="true"></i></NavLink>
+						<NavLink to="/challengers" class={ this.state.backButtonClass }><i class="fa fa-close" aria-hidden="true"></i></NavLink>
 					</div>
 					<ul class="dropdown">
 						<li onClick={ this.sidebarToggle }>

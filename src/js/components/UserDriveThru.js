@@ -1,5 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
+import TimeAgo from "timeago-react"
 
 import { fetchUserDriveThru } from "../actions/userActions"
 
@@ -46,18 +47,37 @@ export default class UserReceipts extends React.Component {
 			}
 		}
 
-		const receipt_keys = Object.keys( user.drivethru ).sort( ( a, b ) => { return a - b });
-		receipt_keys.forEach( ( number ) => {
-			let receipt = user.drivethru[ number ];
-			let classes = [ "number", "receipt" ];
-			if ( receipt.amount > 0 )
-				classes.push( "has" );
-			if ( receipt.amount > 1 )
-				classes.push( "multiple" );
-			if ( user.latest_receipt && user.latest_receipt.number == number )
-				classes.push( "latest" );
-			mappedDriveThru.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
-		} )
+		let content
+		if ( ! Object.keys( user.drivethru ).length ) {
+			user.totals.drivethru.total = user.totals.drivethru.total || 0
+			user.totals.drivethru.unique = user.totals.drivethru.unique || 0
+		}
+		else {
+			const receipt_keys = Object.keys( user.drivethru ).sort( ( a, b ) => { return a - b });
+			receipt_keys.forEach( ( number ) => {
+				let receipt = user.drivethru[ number ];
+				let classes = [ "number", "receipt" ];
+				if ( receipt.amount > 0 )
+					classes.push( "has" );
+				if ( receipt.amount > 1 )
+					classes.push( "multiple" );
+				if ( user.latest_receipt && user.latest_receipt.number == number )
+					classes.push( "latest" );
+				mappedDriveThru.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
+			})
+			content = (
+				<div>
+					<div class="latest_tweet">
+						{ user.latest_receipt.tweet.data.text }<span class="date"> - <span title={ user.latest_receipt.date }><TimeAgo datetime={ user.latest_receipt.date } /></span></span>
+					</div>
+					<div class="section individuals">
+						<ul>
+							{ mappedDriveThru }
+						</ul>
+					</div>
+				</div>
+			)
+		}
 
 		return	(
 			<div>
@@ -83,14 +103,7 @@ export default class UserReceipts extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div class="latest_tweet">
-						{ user.latest_receipt.tweet.data.text }<span class="date"> - 1 day ago</span>
-					</div>
-					<div class="section individuals">
-						<ul>
-							{ mappedDriveThru }
-						</ul>
-					</div>
+					{ content }
 				</div>
 			</div>
 		)

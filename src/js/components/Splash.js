@@ -10,7 +10,7 @@ export default class Splash extends React.Component {
 		return (
 			<div>
 				<TopNav showBackButton={ false } />
-				<div class="container" id="main_content">
+				<div class="container" id="splash_content">
 					
 					<div class="intro">
 						<img class="img_welcome" src="img/splash-welcome.png" />
@@ -54,13 +54,17 @@ export default class Splash extends React.Component {
 								</div>
 
 								<div class="point">
-									You may also geotag Exact Coordinates or the In-N-Out Burger Point of Interest only (no cities, etc)
+									You may alternatively geotag Exact Coordinates or the In-N-Out Burger Point of Interest only (no cities, etc)
 								</div>
 								
 							</div>
 
 							<div class="item">
 								<div class="header">3. Repeat</div>
+
+								<div class="point">
+									Track your in-store and drive-thru receipts, and store progress at { process.env.REACT_APP_FRONTEND_URL }/@TWITTER_HANDLE 
+								</div>
 							</div>
 
 						</div>
