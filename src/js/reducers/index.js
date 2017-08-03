@@ -6,7 +6,6 @@ import users from "./usersReducer"
 import userReceipts from "./userReceiptsReducer"
 import userStores from "./userStoresReducer"
 import userDriveThru from "./userDriveThruReducer"
-import search from "./searchReducer"
 
 export default combineReducers({
 	account,
@@ -15,5 +14,4 @@ export default combineReducers({
 	userReceipts,
 	userStores,
 	userDriveThru,
-	search,
 })

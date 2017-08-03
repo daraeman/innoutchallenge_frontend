@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import { NavLink } from "react-router-dom";
 
-import { fetchUsers, changeSearch } from "../actions/usersActions"
+import { fetchUsers, changeSearch, clearUsers } from "../actions/usersActions"
 
 require( "../less/TopNav.less" )
 
@@ -41,7 +41,7 @@ export default class TopNav extends React.Component {
 		let text = document.getElementById( "searchText" ).value
 
 		if ( ! text.length )
-			return
+			return this.props.dispatch( clearUsers( this.props.dispatch ) )
 
 		if ( this.state.searchText == text )
 			return
