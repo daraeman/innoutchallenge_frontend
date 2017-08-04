@@ -52,8 +52,6 @@ export function fetchUserStores( dispatch, name, latest_receipt ) {
 				else
 					message = error.message;
 
-				console.log( "error", error )
-
 				dispatch({ type: "FETCH_USER_STORES_REJECTED", payload: { error: message, status: error.response.status || 500 } })
 			});
 	}
@@ -68,8 +66,6 @@ export function fetchUserDriveThru( dispatch, name, latest_receipt ) {
 				dispatch({ type: "FETCH_USER_DRIVETHRU_FULFILLED", payload: response.data })
 			})
 			.catch( ( error ) => {
-
-				console.log( "error >> ", error )
 
 				let message;
 				if ( error.response )

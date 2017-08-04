@@ -6,6 +6,7 @@
 			display: block;
 			margin: 0 auto;
 			padding: 25px;
+			max-width: calc( ~"95% - 50px" );
 		}
 
 		.img_welcome {
@@ -14,7 +15,7 @@
 		}
 
 		.img_to_the {
-			width: 515px;
+			width: 400px;
 		}
 
 		.img_logo {
@@ -56,20 +57,28 @@
 				font-family: "Georgia", serif;
 				font-size: 20px;
 				font-style: italic;
-				padding: 0px 0px 0px 30px;
+				padding: 12px 0px 0px 30px;
 				position: relative;
+				word-break: break-word;
+
+				&:last-child {
+					padding-bottom: 12px;
+				}
 
 				&:before {
 					content: "◆";
 					position: absolute;
 					left: 9px;
-					top: -2px;
+					top: 10px;
 					font-family: "Arial", sans-serif;
 				}
 
 				.sub {
 					padding: 10px 0px 0px 20px;
 					position: relative;
+					font-style: normal;
+					color: rgb( 100,100,100 );
+					font-size: 16px;
 
 					&:last-child {
 						padding-bottom: 20px;
@@ -78,16 +87,15 @@
 					&:before {
 						position: absolute;
 						font-family: "Arial", sans-serif;
-						font-style: normal;
 					}
 
 					&.marked_correct {
 
 						&:before {
-							left: -1px;
-							top: 12px;
 							content: "✔";
-							font-size: 18px;
+							left: 1px;
+							top: 12px;
+							font-size: 15px;
 							color: rgb( 0,150,0 );
 						}
 					}
@@ -96,8 +104,8 @@
 						&:before {
 							content: "𐄂";
 							left: 1px;
-							top: 2px;
-							font-size: 29px;
+							top: 1px;
+							font-size: 27px;
 							color: rgb( 180,0,0 );
 						}
 					}

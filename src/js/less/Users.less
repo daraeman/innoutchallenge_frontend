@@ -15,16 +15,26 @@
 		line-height: 165px;
 		font-size: 65px;
 		font-family: serif;
+		background-size: cover;
+		background-position: center;
+
+		.text {
+			position: relative;
+			z-index: 2;
+		}
 
 		&:before {
 			content: "";
 			position: absolute;
-			top: 3px;
-			left: 3px;
-			width: 149px;
-			height: 149px;
-			border: 5px solid rgb( 255,255,255 );
+			top: 5px;
+			left: 5px;
+			width: 151px;
+			height: 151px;
+			border: 2px solid rgb( 255,255,255 );
 			border-radius: 500px;
+			background-color: rgba( 0,0,0, 0.5 );
+			z-index: 1;
+			//box-shadow: 0px 0px 28px rgba( 0,0,0, 0.3 );
 		}
 	}
 

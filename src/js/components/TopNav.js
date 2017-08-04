@@ -53,9 +53,13 @@ export default class TopNav extends React.Component {
 		})
 	}
 
+	createUserTwitterLink( title ) {
+		return "https://twitter.com/"+ title.substring( 1 );
+	}
+
 	render() {
 
-		let { authenticated, searchText, title } = this.props
+		let { authenticated, searchText, title, linkTwitter } = this.props
 
 		let authLinks
 		if ( authenticated ) {
@@ -83,6 +87,13 @@ export default class TopNav extends React.Component {
 				</div>
 			)
 		}
+		else if ( linkTwitter ) {
+			title_el = (
+				<div class="text">
+					<a href={ this.createUserTwitterLink( title ) }>{ title }</a>
+				</div>
+			)
+		}
 		else {
 			title_el = (
 				<div class="text">
@@ -106,6 +117,7 @@ export default class TopNav extends React.Component {
 				</nav>
 				<div id="side_nav_clickfield" class={ this.state.sidebarClass } onClick={ this.sidebarToggle }></div>
 				<ul id="side_nav" class={ this.state.sidebarClass }>
+					<li><NavLink exact to="/" activeClassName="active" onClick={ this.sidebarToggle }>Home</NavLink></li>
 					<li><NavLink to="/challengers" activeClassName="active" onClick={ this.sidebarToggle }>Challengers</NavLink></li>
 					<li><NavLink to="/search" activeClassName="active" onClick={ this.sidebarToggle }>Search</NavLink></li>
 					{ authLinks }

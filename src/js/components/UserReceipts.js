@@ -34,11 +34,7 @@ export default class UserReceipts extends React.Component {
 	render() {
 
 		const { user, error } = this.props;
-		console.log( "this.props", this.props )
 		let mappedReceipts = []
-
-		console.log( "user", user )
-
 		
 		if ( error ) {
 			console.log( "error", error )
@@ -91,7 +87,7 @@ export default class UserReceipts extends React.Component {
 		return	(
 			<div>
 				<Error error={ [ error ] } />
-				<TopNav title={ "@" + user.name } showBackButton={ true } />
+				<TopNav title={ "@" + user.name } showBackButton={ true } linkTwitter={ true } />
 				<SubNav url={ this.props.match.url } type="user" />
 				<div class="container" id="main_content">
 					<div class="section totals">

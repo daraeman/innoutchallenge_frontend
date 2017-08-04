@@ -7,6 +7,9 @@ require( "../less/Splash.less" )
 export default class Splash extends React.Component {
 
 	render() {
+
+		let nice_domain = process.env.REACT_APP_FRONTEND_URL.replace( /https?:\/\//, "" )
+
 		return (
 			<div>
 				<TopNav showBackButton={ false } />
@@ -44,7 +47,7 @@ export default class Splash extends React.Component {
 								</div>
 
 								<div class="point">
-									Tweets may be excluded by putting "#!" in your tweet.
+									If you want to use the hashtag, but not for the challenge, just put a "#!" in.
 									<div class="sub">"Still waiting for a presidential candidate to join the #innoutChallenge 4 8 15 16 23 42 #!"</div>
 								</div>
 
@@ -54,7 +57,7 @@ export default class Splash extends React.Component {
 								</div>
 
 								<div class="point">
-									You may alternatively geotag Exact Coordinates or the In-N-Out Burger Point of Interest only (no cities, etc)
+									You may alternatively geotag with Exact Coordinates or the In-N-Out Burger Point of Interest only (no cities, etc)
 								</div>
 								
 							</div>
@@ -63,7 +66,7 @@ export default class Splash extends React.Component {
 								<div class="header">3. Repeat</div>
 
 								<div class="point">
-									Track your in-store and drive-thru receipts, and store progress at { process.env.REACT_APP_FRONTEND_URL }/@TWITTER_HANDLE 
+									Track your in-store and drive-thru receipts, and store progress at { nice_domain }/@TWITTER_HANDLE 
 								</div>
 							</div>
 
@@ -89,7 +92,7 @@ export default class Splash extends React.Component {
 
 							<div class="item">
 								<div class="header">Is this owned by In-N-Out?</div>
-								<div class="point">Not at all! We’re just some fans doing what needs to be done.<br />That said, if they wanted to pay us we wouldn’t decline.</div>
+								<div class="point">Not at all! We’re just some fans doing what needs to be done.<br />That said, if they wanted to make it official we wouldn’t decline.</div>
 							</div>
 
 						</div>
