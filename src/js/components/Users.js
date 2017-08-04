@@ -77,7 +77,7 @@ export default class Users extends React.Component {
 		else {
 			content = users.map( ( user ) => {
 				return (
-					<NavLink className="item challenger" key={ user.name } to={ "/@" + user.name }>
+					<NavLink className="item challenger" key={ user.name } to={ "/@" + user.name + "/receipts" }>
 						<div className="number" style={ { backgroundImage: "url("+ this.convertProfileImageUrl( user.settings.avatar, 200 ) +")" } }>
 						 	<div class="text">{ this.formatNumber( user.totals.receipts.unique ) }</div>
 						 </div>

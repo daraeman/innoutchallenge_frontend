@@ -66,7 +66,7 @@ export default class Splash extends React.Component {
 								<div class="header">3. Repeat</div>
 
 								<div class="point">
-									Track your in-store and drive-thru receipts, and store progress at { nice_domain }/@TWITTER_HANDLE 
+									Track your in-store and drive-thru receipts, and store progress at { nice_domain }/@your_twitter_name 
 								</div>
 							</div>
 
