@@ -8,7 +8,7 @@ module.exports = {
 		fs: "empty",
 	},
 	context: path.resolve( __dirname, "src" ),
-	devtool: debug ? "inline-sourcemap" : null,
+	devtool: debug ? "inline-sourcemap" : false,
 	entry: "./js/client.js",
 	module: {
 		loaders: [
@@ -24,7 +24,7 @@ module.exports = {
 				test: /\.less$/,
 				use: [
 					{ loader: "style-loader" },
-					{ loader: "css-loader" },
+					{ loader: "css-loader", options: { minimize: ! debug } },
 					{ loader: "less-loader" },
 				],
 			},

@@ -5,7 +5,6 @@ import TopNav from "./TopNav"
 
 require( "../less/Splash.less" )
 
-
 export default class Splash extends React.Component {
 
 	render() {

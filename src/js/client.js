@@ -17,10 +17,10 @@ import UserDriveThru from "./components/UserDriveThru"
 import PageNotFound from "./components/PageNotFound"
 import store from "./store"
 
-process.env.REACT_APP_BACKEND_URL = "http://127.0.0.1:3000";
 process.env.REACT_APP_FRONTEND_URL = "http://127.0.0.1:8080";
+process.env.REACT_APP_BACKEND_URL = "http://127.0.0.1:8080";
 process.env.REACT_APP_FRONTEND_PORT = "8080";
-process.env.REACT_APP_BACKEND_PORT = "3000";
+process.env.REACT_APP_BACKEND_PORT = "8080";
 
 require( "./less/main.less" )
 

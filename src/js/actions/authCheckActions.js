@@ -1,6 +1,5 @@
 import axios from "axios"
 
-
 /*
 {
 	type: "FETCH_AUTH_CHECK_FULFILLED",
