@@ -39,7 +39,6 @@
   },
   "scripts": {
     "dev": "node_modules/.bin/webpack-dev-server",
-    "build": "webpack --config webpack.config.js",
     "postinstall": "webpack --config webpack.config.js",
     "test": "echo 'no tests'"
   }
