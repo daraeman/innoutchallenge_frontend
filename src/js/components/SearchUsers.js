@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import { NavLink } from "react-router-dom"
 
 import { clearUsers } from "../actions/usersActions"
+import { convertProfileImageUrl, formatCircleNumber } from "./Utils"
 
 import Error from "./Error"
 import TopNav from "./TopNav"
@@ -29,12 +30,6 @@ export default class SearchUsers extends React.Component {
 		this.props.dispatch( clearUsers( this.props.dispatch ) )
 	}
 
-	formatNumber( number ) {
-		if ( number == 69 )
-			return "68½";
-		return number;
-	}
-
 	render() {
 
 		const { users, error } = this.props;
@@ -43,8 +38,10 @@ export default class SearchUsers extends React.Component {
 		if ( users && users[0] && users[0].name ) {
 			content = users.map( ( user ) => {
 				return (
-					<NavLink className="item challenger" key={ user.name } to={ "/@" + user.name }>
-						<div className="number">{ this.formatNumber( user.totals.receipts.unique ) }</div>
+					<NavLink className="item challenger" key={ user.name } to={ "/@" + user.name + "/receipts" }>
+						<div className="number" style={ { backgroundImage: "url("+ convertProfileImageUrl( user.settings.avatar, 200 ) +")" } }>
+						 	<div class="text">{ formatCircleNumber( user.totals.receipts.unique ) }</div>
+						 </div>
 						<div className="name">{ user.name }</div>
 					</NavLink>
 				)

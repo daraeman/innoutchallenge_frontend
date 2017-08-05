@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import { NavLink } from "react-router-dom"
 
 import { fetchUsers } from "../actions/usersActions"
+import { convertProfileImageUrl, formatCircleNumber } from "./Utils"
 
 import Error from "./Error"
 import TopNav from "./TopNav"
@@ -49,20 +50,6 @@ export default class Users extends React.Component {
 		return number;
 	}
 
-	convertProfileImageUrl( url, size ) {
-		let regex = /(_normal|200x200|400x400)(\.\w+)/;
-		let replace;
-		if ( size == "normal" )
-			replace = "_normal";
-		else if ( size == 200 )
-			replace = "_200x200";
-		else if ( size == 400 )
-			replace = "_400x400";
-		else if ( size == "full" )
-			replace = "";
-		return url.replace( regex, replace + "$2" );
-	}
-
 	render() {
 
 		const { users, error, hasPreviousPage, hasNextPage } = this.props;
@@ -78,8 +65,8 @@ export default class Users extends React.Component {
 			content = users.map( ( user ) => {
 				return (
 					<NavLink className="item challenger" key={ user.name } to={ "/@" + user.name + "/receipts" }>
-						<div className="number" style={ { backgroundImage: "url("+ this.convertProfileImageUrl( user.settings.avatar, 200 ) +")" } }>
-						 	<div class="text">{ this.formatNumber( user.totals.receipts.unique ) }</div>
+						<div className="number" style={ { backgroundImage: "url("+ convertProfileImageUrl( user.settings.avatar, 200 ) +")" } }>
+						 	<div class="text">{ formatCircleNumber( user.totals.receipts.unique ) }</div>
 						 </div>
 						<div className="name">{ user.name }</div>
 					</NavLink>
