@@ -3,11 +3,23 @@ const debug = process.env.NODE_ENV !== "production";
 const webpack = require( "webpack" );
 const path = require( "path" );
 const UglifyJSPlugin = require( "uglifyjs-webpack-plugin" );
+const Dotenv = require( "dotenv-webpack" );
+const fs = require( "fs" );
 
-let plugins = [];
-if ( ! debug ) {
+let env_path;
+if ( fs.existsSync( "./.env" ) )
+	env_path = "./.env";
+else if ( fs.existsSync( "../../.env" ) )
+	env_path = "../../.env";
+
+let plugins = [
+	new Dotenv({
+		path: env_path, 
+		safe: false,
+	})
+];
+if ( ! debug )
 	plugins.push( new UglifyJSPlugin() );
-}
 
 module.exports = {
 	node: {
