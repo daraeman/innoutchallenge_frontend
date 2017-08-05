@@ -2,6 +2,12 @@ require( "dotenv" ).config();
 const debug = process.env.NODE_ENV !== "production";
 const webpack = require( "webpack" );
 const path = require( "path" );
+const UglifyJSPlugin = require( "uglifyjs-webpack-plugin" );
+
+let plugins = [];
+if ( ! debug ) {
+	plugins.push( new UglifyJSPlugin() );
+}
 
 module.exports = {
 	node: {
@@ -30,6 +36,7 @@ module.exports = {
 			},
 		],
 	},
+	plugins: plugins,
 	output: {
 		path: path.resolve( __dirname, "build" ),
 		filename: "bundle.js",
