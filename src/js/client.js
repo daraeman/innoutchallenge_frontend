@@ -36,10 +36,10 @@ ReactDOM.render(
 						<Route path="/@:user(\w+)/stores" exact component={ UserStores } />
 						<Route path="/@:user(\w+)/receipts" exact component={ UserReceipts } />
 						<Route path="/@:user(\w+)/drivethru" exact component={ UserDriveThru } />
-						<Redirect from="/@:user(\w+)" to="receipts" exact />
+						<Redirect from="/@:user(\w+)" to={ document.location.pathname + "/receipts" } exact />
 						<Route path="/account/settings" component={ Account } exact />
 						<Route path="/account/receipts" component={ AccountReceipts } exact />
-						<Redirect from="/account" to="settings" exact />
+						<Redirect from="/account" to="/account/settings" exact />
 						<Route path="/" component={ Splash } exact />
 						<Route path="/search" component={ SearchUsers } exact />
 						<Redirect from="/challengers/0" to="/challengers" exact />
