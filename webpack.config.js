@@ -1,4 +1,5 @@
-const debug = true;//process.env.NODE_ENV !== "production";
+require( "dotenv" ).config();
+const debug = process.env.NODE_ENV !== "production";
 const webpack = require( "webpack" );
 const path = require( "path" );
 
