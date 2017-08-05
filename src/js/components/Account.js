@@ -101,14 +101,12 @@ export default class Account extends React.Component {
 						<div class="title">Tweet my:</div>
 						<div class="options">
 							<div class="option" data-option="tweet_unique_numbers" data-value={ account.settings.tweet.unique_numbers } onClick={ ( event ) => { this.changeSettingHandler( event ) } }>New In-Store Receipts</div>
-							<div class="option" data-option="tweet_milestones" data-value={ account.settings.tweet.milestones } onClick={ ( event ) => { this.changeSettingHandler( event ) } }>Milestones</div>
 						</div>
 					</div>
 					<div class="section">
 						<div class="title">DM my:</div>
 						<div class="options">
 							<div class="option" data-option="dm_unique_numbers" data-value={ account.settings.dm.unique_numbers } onClick={ ( event ) => { this.changeSettingHandler( event ) } }>New In-Store Receipts</div>
-							<div class="option" data-option="dm_milestones" data-value={ account.settings.dm.milestones } onClick={ ( event ) => { this.changeSettingHandler( event ) } }>Milestones</div>
 							<div class="option" data-option="dm_stores" data-value={ account.settings.dm.stores } onClick={ ( event ) => { this.changeSettingHandler( event ) } }>New Stores</div>
 							<div class="option" data-option="dm_drive_thrus" data-value={ account.settings.dm.drive_thrus } onClick={ ( event ) => { this.changeSettingHandler( event ) } }>New Drive-Thru Receipts</div>
 						</div>

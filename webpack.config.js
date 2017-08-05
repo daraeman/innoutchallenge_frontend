@@ -40,7 +40,7 @@ module.exports = {
 		port: 8080,
 		proxy: [
 			{
-				context: [ "/api/**", "/img/**" ],
+				context: [ "/api/**", "/img/**", "/font/**" ],
 				target: "http://localhost:3000/",
 				secure: false,
 			},
