@@ -47,25 +47,30 @@ export default class UserStores extends React.Component {
 			}
 		}
 
+		const store_keys = Object.keys( user.stores ).sort( ( a, b ) => { return a - b });
+		let has_stores = false;
+		store_keys.forEach( ( number ) => {
+			let store = user.stores[ number ];
+			let classes = [ "number", "store" ];
+			if ( store.amount > 0 )
+				classes.push( "has" );
+			if ( store.amount > 1 ) {
+				has_stores = true;
+				classes.push( "multiple" );
+			}
+			if ( user.latest_receipt && user.latest_receipt.store.number == number )
+				classes.push( "latest" );
+			mappedStores.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
+		})
+
 		let content
-		if ( ! Object.keys( user.stores ).length ) {
-			console.error( "no stores" )
+		if ( ! has_stores ) {
 			user.totals.stores.total = user.totals.stores.total || 0
 			user.totals.stores.unique = user.totals.stores.unique || 0
+			user.totals.stores.remaining = user.totals.stores.remaining || 0
+
 		}
 		else {
-			const store_keys = Object.keys( user.stores ).sort( ( a, b ) => { return a - b });
-			store_keys.forEach( ( number ) => {
-				let store = user.stores[ number ];
-				let classes = [ "number", "store" ];
-				if ( store.amount > 0 )
-					classes.push( "has" );
-				if ( store.amount > 1 )
-					classes.push( "multiple" );
-				if ( user.latest_receipt && user.latest_receipt.store.number == number )
-					classes.push( "latest" );
-				mappedStores.push( ( <li className={ classes.join( " " ) } key={ number }>{ number }</li> ) )
-			})
 			content = (
 				<div>
 					<div class="latest_tweet">
@@ -87,6 +92,14 @@ export default class UserStores extends React.Component {
 				<SubNav url={ this.props.match.url } type="user" />
 				<div class="container" id="main_content">
 					<div class="section totals">
+						<div class="item circle left small">
+							<div class="title">
+								total
+							</div>
+							<div class="number">
+								{ user.totals.stores.total }
+							</div>
+						</div>
 						<div class="item circle middle">
 							<div class="title">
 								unique
@@ -95,7 +108,7 @@ export default class UserStores extends React.Component {
 								{ user.totals.stores.unique }
 							</div>
 						</div>
-						<div class="item circle right">
+						<div class="item circle right small">
 							<div class="title">
 								left
 							</div>

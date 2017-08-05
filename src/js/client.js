@@ -47,6 +47,7 @@ ReactDOM.render(
 						<Route path="/challengers/:page(\d+)" exact component={ Users } />
 						<Route path="/challengers" component={ Users } exact />
 						<Route path="/404" exact component={ PageNotFound } />
+						<Redirect path="/*" to="/404" />
 					</Switch>
 				</div>
 			</Router>
