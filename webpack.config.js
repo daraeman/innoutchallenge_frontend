@@ -1,16 +1,13 @@
-require( "dotenv" ).config();
+const fs = require( "fs" );
+
+let env_path = ( fs.existsSync( "./.env" ) ) ? "./.env" : ( fs.existsSync( "../../.env" ) ) ? "../../.env" : "";
+
+require( "dotenv" ).config( { path: env_path } );
 const debug = process.env.NODE_ENV !== "production";
 const webpack = require( "webpack" );
 const path = require( "path" );
 const UglifyJSPlugin = require( "uglifyjs-webpack-plugin" );
 const Dotenv = require( "dotenv-webpack" );
-const fs = require( "fs" );
-
-let env_path;
-if ( fs.existsSync( "./.env" ) )
-	env_path = "./.env";
-else if ( fs.existsSync( "../../.env" ) )
-	env_path = "../../.env";
 
 let plugins = [
 	new Dotenv({
