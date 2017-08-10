@@ -1,3 +1,5 @@
+@ino_red: rgb( 226,5,5 );
+
 #splash_content {
 	.intro {
 		padding-bottom: 40px;
@@ -28,12 +30,31 @@
 		padding-top: 20px;
 
 		.title {
-			background: rgb( 255,0,0 );
-			padding: 0px 13px;
 			font-family: "League Gothic", Arial;
 			font-style: italic;
 			font-size: 61px;
 			color: rgb( 255,255,255 );
+			border-bottom: 2px solid @ino_red;
+			line-height: 64px;
+
+			.text {
+				display: inline-block;
+				background: @ino_red;
+				padding: 7px 17px 0px 13px;
+				position: relative;
+
+				&:before {
+					position: absolute;
+					content: "";
+					top: 0px;
+					right: -16px;
+					width: 0;
+					height: 0;
+					border-style: solid;
+					border-width: 75px 16px 0 0;
+					border-color: @ino_red transparent transparent transparent;
+				}
+			}
 		}
 
 		.items {
@@ -42,6 +63,15 @@
 
 		.item {
 			padding-bottom: 15px;
+			display: flex;
+			flex-direction: row;
+
+			.column {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				flex-grow: 1;
+			}
 
 			&:last-child {
 				padding-bottom: 0px;
@@ -107,6 +137,29 @@
 							top: 1px;
 							font-size: 27px;
 							color: rgb( 180,0,0 );
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media ( max-width: 650px ) {
+
+	#splash_content {
+
+		.section {
+
+			.items {
+				
+				.item {
+					flex-direction: column;
+
+					.column {
+
+						&.image_col {
+							align-items: center;
 						}
 					}
 				}
