@@ -154,12 +154,41 @@
 			.items {
 				
 				.item {
-					flex-direction: column;
 
-					.column {
+					&:not( .obtain_innout ) {
+						flex-direction: column;
 
-						&.image_col {
-							align-items: center;
+						.column {
+
+							&.image_col {
+								align-items: center;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media ( max-width: 530px ) {
+
+	#splash_content {
+
+		.section {
+
+			.items {
+				
+				.item {
+
+					&.obtain_innout {
+						flex-direction: column;
+
+						.column {
+
+							&.image_col {
+								align-items: center;
+							}
 						}
 					}
 				}

@@ -105,7 +105,7 @@ export default class Splash extends React.Component {
 
 						<div class="items">
 
-							<div class="item">
+							<div class="item obtain_innout">
 
 								<div class="column">
 
