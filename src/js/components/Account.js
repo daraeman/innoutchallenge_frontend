@@ -81,8 +81,8 @@ export default class Account extends React.Component {
 					<PageNotFound error="Page was not found yo!" />
 				)
 			}
-			else if ( error.status === 403 ) {
-				console.log( "403" )
+			else if ( error.status === 401 ) {
+				console.log( "401" )
 				return (
 					<PageNotAuthorized returnUrl={ this.props.location.pathname } />
 				)

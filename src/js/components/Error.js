@@ -10,7 +10,7 @@ export default class Error extends React.Component {
 		let messages = []
 		if ( error.message )
 			messages.push( error.message )
-		if ( error.status === 403 )
+		if ( error.status === 401 )
 			messages.push( "Unauthorized, please log in" )
 		return messages
 	}

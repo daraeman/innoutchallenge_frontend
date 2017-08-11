@@ -15,6 +15,8 @@ import UserReceipts from "./components/UserReceipts"
 import UserStores from "./components/UserStores"
 import UserDriveThru from "./components/UserDriveThru"
 import PageNotFound from "./components/PageNotFound"
+import AdminAuth from "./components/AdminAuth"
+import UserAuth from "./components/UserAuth"
 import store from "./store"
 
 require( "./less/main.less" )
@@ -41,8 +43,10 @@ ReactDOM.render(
 						<Redirect from="/challengers/1" to="/challengers" exact />
 						<Route path="/challengers/:page(\d+)" exact component={ Users } />
 						<Route path="/challengers" component={ Users } exact />
+						<Route path="/signin" exact component={ UserAuth } />
+						<Route path="/admin/signin" exact component={ AdminAuth } />
 						<Route path="/404" exact component={ PageNotFound } />
-						<Redirect path="/*" to="/404" />
+						<Route path="/*" component={ PageNotFound } />
 					</Switch>
 				</div>
 			</Router>
