@@ -1,6 +1,14 @@
 const fs = require( "fs" );
 
-require( "dotenv" ).config( { path: process.env.ENV_PATH } );
+let env_path;
+if ( process.env.ENV_PATH === ".env.production" ) {
+	env_path = ( fs.existsSync( "./.env.production" ) ) ? "../../.env.production" : ( fs.existsSync( "../../.env.production" ) ) ? "./.env.production" : false;
+}
+else {
+	env_path = process.env.ENV_PATH || ".env.dev";
+}
+
+require( "dotenv" ).config( { path: env_path } );
 const debug = process.env.NODE_ENV !== "production";
 const webpack = require( "webpack" );
 const path = require( "path" );
@@ -9,7 +17,7 @@ const Dotenv = require( "dotenv-webpack" );
 
 let plugins = [
 	new Dotenv({
-		path: process.env.ENV_PATH, 
+		path: env_path, 
 		safe: false,
 	})
 ];
