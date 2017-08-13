@@ -1,12 +1,13 @@
 const fs = require( "fs" );
 
+if ( ! process.env.ENV_PATH )
+	throw new Error( "missing ENV_PATH" );
+
 let env_path;
-if ( process.env.ENV_PATH === ".env.production" ) {
+if ( process.env.ENV_PATH === ".env.production" )
 	env_path = ( fs.existsSync( "./.env.production" ) ) ? "../../.env.production" : ( fs.existsSync( "../../.env.production" ) ) ? "./.env.production" : false;
-}
-else {
+else
 	env_path = process.env.ENV_PATH || ".env.dev";
-}
 
 require( "dotenv" ).config( { path: env_path } );
 const debug = process.env.NODE_ENV !== "production";
